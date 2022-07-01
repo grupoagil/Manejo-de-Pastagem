@@ -1,0 +1,32 @@
+{
+  "cwd": "C:\\Users\\danie\\Desenvolvimento\\Manejo-de-Pastagem",
+  "type": [
+    "cordova"
+  ],
+  "name": "Manejo de Pastagem",
+  "framework": "core",
+  "template": "blank",
+  "bundler": "vite",
+  "cssPreProcessor": false,
+  "theming": {
+    "customColor": false,
+    "color": "#007aff",
+    "darkTheme": false,
+    "iconFonts": true,
+    "fillBars": false
+  },
+  "customBuild": false,
+  "pkg": "br.edu.ufra.manejopastagem",
+  "cordova": {
+    "folder": "cordova",
+    "platforms": [
+      "ios",
+      "android"
+    ],
+    "plugins": [
+      "cordova-plugin-statusbar",
+      "cordova-plugin-keyboard",
+      "cordova-plugin-splashscreen"
+    ]
+  }
+}
