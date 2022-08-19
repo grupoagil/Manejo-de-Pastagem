@@ -4,7 +4,7 @@
       <div class="logo-base-topo">
         <div class="left">
           <a href="#" class="circle-white back">
-            <i class="icon icon-back"></i>
+            <img src="${imgArrow}" alt="" />
           </a>
         </div>
         <div class="logo-topo">
@@ -63,7 +63,7 @@
       </div>
       <div class="margin">
         <div class="btn-green">
-          <a href="/">
+          <a href="/begin/">
             <p class="title-03 white-color">Cadastrar</p>
           </a>
         </div>

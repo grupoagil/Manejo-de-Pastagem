@@ -1,5 +1,5 @@
 <template>
-  <div class="page" data-name="home">
+  <div class="page" data-name="login">
     <div class="intro">
       <div class="intro-img">
         <img src="${imgLogo}" alt="" />
