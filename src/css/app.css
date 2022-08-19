@@ -350,6 +350,10 @@ a p {
   filter: opacity(0.6);
 }
 
+.page[data-name="registration"] .gram {
+  position: relative;
+}
+
 .logo-base-topo {
   height: 100%;
   display: flex;
@@ -1081,6 +1085,12 @@ a p {
   top: 2rem;
 }
 
+
+.circle-white i{
+  font-size: .8rem;
+  margin-left: 20%;
+}
+
 .rule-green {
   width: 100%;
   height: 0.0625rem;
@@ -1282,6 +1292,7 @@ p {
 
 .page.page-current {
   background-color: var(--bg);
+  overflow: auto;
 }
 
 .swiper-slide {

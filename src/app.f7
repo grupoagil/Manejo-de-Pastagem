@@ -1,14 +1,17 @@
-
 <template>
   <div id="app">
-
-  <!-- Your main view, should have "view-main" class -->
-  <div class="view view-main view-init safe-areas" data-url="/"></div>
-
+    <!-- Your main view, should have "view-main" class -->
+    <div class="view view-main view-init safe-areas" data-url="${url}"></div>
   </div>
 </template>
 <script>
-  export default () => {
+  export default (props, { $f7, $update, $on, $root }) => {
+    let url = "/";
+    if (localStorage.getItem("token") === null) {
+      url = "/begin/";
+      $update();
+    }
+
     return $render;
-  }
+  };
 </script>
