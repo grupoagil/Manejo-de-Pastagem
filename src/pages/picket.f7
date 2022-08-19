@@ -1,5 +1,5 @@
 <template>
-  <div class="page" data-name="home">
+  <div class="page" data-name="picket">
     <div class="topo-login d-flex flex-column space-between">
       <div class="logo-base-topo">
         <div class="left">
@@ -16,8 +16,8 @@
     </div>
     <div class="d-flex flex-column justify-center mt-percent-1">
       <div class="margin">
-        <div class="btn-green">
-          <a href="/registerFarm/">
+        <div style="width: 100%">
+          <a href="/registerFarm/" class="btn-green">
             <p class="title-03 white-color">Nova Fazenda</p>
           </a>
         </div>
@@ -174,8 +174,9 @@
           <div class="add-picket">+</div>
         </a>
       </div>
+      <!-- Rodapé -->
 
-      <!-- Perfil do profissional-->
+      <div class="gram"></div>
     </div>
   </div>
 </template>

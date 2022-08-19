@@ -62,8 +62,8 @@
         <div class="item-title">Profissional</div>
       </div>
       <div class="margin">
-        <div class="btn-green">
-          <a href="/begin/">
+        <div style="width: 100%">
+          <a href="/begin/" class="btn-green">
             <p class="title-03 white-color">Cadastrar</p>
           </a>
         </div>

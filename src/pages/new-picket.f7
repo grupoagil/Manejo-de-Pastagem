@@ -19,8 +19,8 @@
 
     <div class="d-flex flex-column justify-center mt-percent-1">
       <div class="margin">
-        <div class="btn-green">
-          <a href="/registerFarm/">
+        <div style="width: 100%;">
+          <a href="/registerFarm/" class="btn-green">
             <p class="title-03 white-color">Nova Fazenda</p>
           </a>
         </div>

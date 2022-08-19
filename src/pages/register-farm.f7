@@ -42,8 +42,8 @@
       </div>
 
       <div class="margin">
-        <div class="btn-green">
-          <a href="/picket/">
+        <div style="width: 100%">
+          <a href="#" class="btn-green">
             <p class="title-03 white-color">Cadastrar</p>
           </a>
         </div>
@@ -51,10 +51,6 @@
 
       <!-- Perfil do profissional-->
     </div>
-
-    <!-- Rodapé -->
-
-    <div class="gram"></div>
   </div>
 </template>
 

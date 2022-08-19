@@ -354,6 +354,18 @@ a p {
   position: relative;
 }
 
+.page[data-name="picket"] .gram {
+  position: relative;
+}
+
+.page[data-name="profile"] .gram {
+  position: relative;
+}
+
+.page[data-name="profile-password"] .gram {
+  position: relative;
+}
+
 .logo-base-topo {
   height: 100%;
   display: flex;
@@ -1613,4 +1625,8 @@ p {
   .mt-percent-1 {
     margin-top: 0rem;
   }
+}
+
+.md .item-input:not(.item-input-outline) .item-input-wrap:after, .md .input:not(.input-outline):after{
+  background: unset;
 }
