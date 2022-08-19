@@ -4,9 +4,11 @@
     <div class="topo-login d-flex flex-column space-between">
 
       <div class="logo-base-topo">
-
-        <a href="/settings/" class="circle-white"><img src="${imgArrow}" alt=""/></a>
-
+        <div class="left">
+          <a href="#" class="circle-white back">
+            <img src="${imgArrow}" alt="" />
+          </a>
+        </div>
         <div class="logo-topo">
           <img src="${imgLogoLogin}" alt="" />
         </div>

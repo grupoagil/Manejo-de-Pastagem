@@ -19,16 +19,16 @@
 
     <div class="d-flex flex-column justify-center mt-percent-1">
       <div class="margin d-flex">
-        <div class="btn-green">
-          <a href="/registerPeriod/">
+        <div style="width: 100%;">
+          <a href="/registerPeriod/" class="btn-green">
             <p class="title-03 white-color">Nova Período</p>
           </a>
         </div>
 
         <div class="margin"></div>
 
-        <div class="btn-green">
-          <a href="/registerPicket/">
+        <div style="width: 100%;">
+          <a href="/registerPicket/" class="btn-green">
             <p class="title-03 white-color">Nova Pasto</p>
           </a>
         </div>

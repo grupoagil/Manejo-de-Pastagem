@@ -1,79 +1,49 @@
 <template>
   <div class="page" data-name="home">
-
     <div class="topo-login d-flex flex-column space-between">
-
       <div class="logo-base-topo">
-        
-        <a href="/" class="circle-white"><img src="${imgArrow}" alt=""/></a>
+        <a href="/" class="circle-white"><img src="${imgArrow}" alt="" /></a>
 
         <div class="logo-topo">
           <img src="${imgLogoLogin}" alt="" />
         </div>
 
         <div class="login-topo">Tipos de pasto</div>
-        
       </div>
 
       <div class="little-gram"></div>
-      
-
     </div>
 
-    
-
-
-    
-    
-
-
     <div class="d-flex flex-column justify-center mt-percent-1">
-      
-
-      
-
-      
-
-
       <div class="margin d-flex">
-
-        <div class="btn-green">
-          <a href="/registerPeriod/">
+        <div>
+          <a href="/registerPeriod/" class="btn-green">
             <p class="title-03 white-color">Nova Período</p>
           </a>
         </div>
 
         <div class="margin"></div>
 
-        <div class="btn-green">
-          <a href="/registerPicket/">
+        <div>
+          <a href="/registerPicket/" class="btn-green">
             <p class="title-03 white-color">Nova Pasto</p>
           </a>
         </div>
-
       </div>
 
-
-      
-
-
       <div class="d-flex flex-column justify-center align-items-center margin">
-
         <div class="cow-icon">
           <img src="${imgCow}" alt="" />
         </div>
 
-        <div class="cow-text w-100">Nenhum <span class="green-color">Período</span> ou <span class="green-color">Pasto</span> cadastrada </div>
-
+        <div class="cow-text w-100">
+          Nenhum <span class="green-color">Período</span> ou
+          <span class="green-color">Pasto</span> cadastrada
+        </div>
       </div>
-
-
-
-
 
       <!-- Perfil do profissional-->
     </div>
-
 
     <div class="sheet-modal sheet-modal-top">
       <!-- Bottom toolbar for top sheet -->
@@ -93,30 +63,24 @@
         </div>
       </div>
     </div>
-
-    
-
-
-
   </div>
 </template>
 
 <script>
+  import imgArrow from "../assets/icons/arrow.svg";
+  import imgCow from "../assets/icons/cow.svg";
+  import imgCowFace from "../assets/icons/cow-face.svg";
+  import imgGram from "../assets/icons/gram.svg";
+  import imgLogo from "../assets/icons/logo.svg";
+  import imgLogoLogin from "../assets/icons/logo-login.svg";
+  import imgPlus from "../assets/icons/plus.svg";
+  import imgSubtract from "../assets/icons/subtract.svg";
+  import imgSuccess from "../assets/icons/success.svg";
+  import imgProfile from "../assets/icons/profile.svg";
 
-  import imgArrow from '../assets/icons/arrow.svg'
-  import imgCow from '../assets/icons/cow.svg'
-  import imgCowFace from '../assets/icons/cow-face.svg'
-  import imgGram from '../assets/icons/gram.svg'
-  import imgLogo from '../assets/icons/logo.svg'
-  import imgLogoLogin from '../assets/icons/logo-login.svg'
-  import imgPlus from '../assets/icons/plus.svg'
-  import imgSubtract from '../assets/icons/subtract.svg'
-  import imgSuccess from '../assets/icons/success.svg'
-  import imgProfile from '../assets/icons/profile.svg'
-
-  import imgLittleGram from '../assets/icons/little-gram.png'
+  import imgLittleGram from "../assets/icons/little-gram.png";
 
   export default () => {
-    return $render
-  }
+    return $render;
+  };
 </script>
