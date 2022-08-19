@@ -7,7 +7,7 @@
 <script>
   export default (props, { $f7, $update, $on, $root }) => {
     let url = "/";
-    if (localStorage.getItem("token") === null) {
+    if (localStorage.getItem("token") != null) {
       url = "/begin/";
       $update();
     }
