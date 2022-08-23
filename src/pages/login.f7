@@ -109,7 +109,6 @@
         $f7.dialog.close();
         $f7.dialog.alert("Usuario ou senha errados!");
       });
-      console.log(promisseLogin);
     };
 
     return $render;

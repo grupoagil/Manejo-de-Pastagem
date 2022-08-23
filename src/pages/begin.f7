@@ -15,7 +15,7 @@
         <img src="${imgProfile}" alt="" />
       </div>
 
-      <div class="box-profile-text">Olá Jose Santos</div>
+      <div class="box-profile-text">Olá ${userName}</div>
     </div>
 
     <div class="all-box mt-percent-1">
@@ -75,6 +75,7 @@
   import imgLittleGram from "../assets/icons/little-gram.png";
 
   export default () => {
+    let userName = localStorage.getItem('username');
     return $render;
   };
 </script>

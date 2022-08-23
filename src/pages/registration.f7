@@ -18,19 +18,37 @@
       <div class="item-inner margin">
         <div class="item-title item-label title-05 mb-1">Nome</div>
         <div class="item-input-wrap template-box p-1 outline-green">
-          <input type="email" placeholder="Primeiro nome" class="w-100" />
+          <input 
+            type="text" 
+            placeholder="Primeiro nome" 
+            class="w-100" 
+            value="${nome}"
+            @input="${updateNome}" 
+          />
         </div>
       </div>
       <div class="item-inner margin">
         <div class="item-title item-label title-05 mb-1">Sobrenome</div>
         <div class="item-input-wrap template-box p-1">
-          <input type="email" placeholder="Sobrenome" class="w-100" />
+          <input 
+            type="text" 
+            placeholder="Sobrenome" 
+            class="w-100"
+            value="${sobrenome}"
+            @input="${updateSobrenome}" 
+          />
         </div>
       </div>
       <div class="item-inner margin">
         <div class="item-title item-label title-05 mb-1">E-mail</div>
         <div class="item-input-wrap template-box p-1">
-          <input type="email" placeholder="exemplo@email.com" class="w-100" />
+          <input 
+            type="email" 
+            placeholder="exemplo@email.com" 
+            class="w-100" 
+            value="${email}"
+            @input="${updateEmail}"
+          />
         </div>
       </div>
       <div class="item-inner margin">
@@ -39,7 +57,9 @@
           <input
             type="password"
             placeholder="oooooo"
-            class="w-100 place-pass"
+            class="w-100"
+            value="${password}"
+            @input="${updatePassword}"
           />
         </div>
       </div>
@@ -51,19 +71,21 @@
           <input
             type="password"
             placeholder="oooooo"
-            class="w-100 place-pass"
+            class="w-100"
+            value="${confirmpassword}"
+            @input="${updateConfirmPassword}"
           />
         </div>
       </div>
       <div class="margin d-flex align-items-center">
-        <input type="checkbox" name="universitario" value="3" class="mr-01" />
+        <input type="checkbox" name="universitario" @input="${updateIsUniversitario}" class="mr-01" />
         <div class="item-title" class="mr-03">Universitário</div>
-        <input type="checkbox" name="profissional" value="3" class="mr-01" />
+        <input type="checkbox" name="profissional" @input="${updateIsProfissional}" class="mr-01" />
         <div class="item-title">Profissional</div>
       </div>
       <div class="margin">
         <div style="width: 100%">
-          <a href="/begin/" class="btn-green">
+          <a @click="${register}" class="btn-green">
             <p class="title-03 white-color">Cadastrar</p>
           </a>
         </div>
@@ -88,8 +110,50 @@
   import imgProfile from "../assets/icons/profile.svg";
 
   import imgLittleGram from "../assets/icons/little-gram.png";
+  import api from "../js/api.js";
 
-  export default () => {
+  export default (props, { $f7, $update, $on, $root }) => {
+    var nome,sobrenome,email,password,confirmpassword,isUniversitario = false,isProfissional = false;
+    const updateNome = (e) => {nome = e.target.value;$update();};
+    const updateSobrenome = (e) => {sobrenome = e.target.value;$update();};
+    const updateEmail = (e) => {email = e.target.value;$update();};
+    const updatePassword = (e) => {password = e.target.value;$update();};
+    const updateConfirmPassword = (e) => {confirmpassword = e.target.value;$update();};
+    const updateIsUniversitario = (e) => {isUniversitario = e.target.checked;$update();};
+    const updateIsProfissional = (e) => {isProfissional = e.target.checked;$update();};
+
+
+    const register = () => {
+      if (nome != null && 
+          sobrenome != null &&
+          email != null &&
+          password != null &&
+          confirmpassword != null) {
+        $f7.dialog.preloader("Carregando...");
+        var promisseLogin = api.auth.register({
+          name:nome,
+          lastname:sobrenome,
+          email:email,
+          password:password,
+          confirm_password:confirmpassword,
+          isUniversity:isUniversitario,
+          isProfessional:isProfissional
+        });
+        promisseLogin.then((e)=>{
+          $f7.dialog.close();
+          localStorage.setItem('token',e.data.token);
+          localStorage.setItem('username',e.data.name);
+          window.location.reload();
+        });
+        promisseLogin.catch((e)=>{
+          $f7.dialog.close();
+          $f7.dialog.alert("Usuario ou senha errados!");
+        });
+      }else{
+        $f7.dialog.alert("Preencha os campos vazios!");
+      }
+    };
+
     return $render;
   };
 </script>
