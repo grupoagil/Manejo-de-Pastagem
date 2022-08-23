@@ -21,7 +21,13 @@
         <div class="item-inner margin">
           <div class="item-title item-label title-05 mb-1">Email</div>
           <div class="item-input-wrap template-box p-1 outline-green">
-            <input type="email" placeholder="João Santos" class="w-100" />
+            <input 
+              type="email" 
+              placeholder="Email" 
+              class="w-100" 
+              value="${email}"
+              @input="${updateEmail}"
+            />
           </div>
         </div>
 
@@ -30,15 +36,17 @@
           <div class="item-input-wrap template-box p-1 outline-gray">
             <input
               type="password"
-              placeholder="oooooo"
-              class="w-100 place-pass"
+              placeholder="Senha"
+              class="w-100"
+              value="${password}"
+              @input="${updatePassword}"
             />
           </div>
         </div>
 
         <div class="margin">
           <div>
-            <a href="/begin/" class="btn-green">
+            <a @click="${login}" class="btn-green">
               <p class="title-03 white-color">Entrar</p>
             </a>
           </div>
@@ -75,8 +83,35 @@
   import imgProfile from "../assets/icons/profile.svg";
 
   import imgLittleGram from "../assets/icons/little-gram.png";
+  import api from "../js/api.js";
 
-  export default () => {
+  export default (props, { $f7, $update, $on, $root }) => {
+    var url = "/begin/";
+    var email,password;
+    const updateEmail = (e) => {email = e.target.value;$update();};
+    const updatePassword = (e) => {password = e.target.value;$update();};
+    /**
+     * Login
+     */
+    const login = function () {
+      $f7.dialog.preloader("Carregando...");
+      var promisseLogin = api.auth.login({
+        email:email,
+        password:password
+      });
+      promisseLogin.then((e)=>{
+        $f7.dialog.close();
+        localStorage.setItem('token',e.data.token);
+        localStorage.setItem('username',e.data.name);
+        window.location.reload();
+      });
+      promisseLogin.catch((e)=>{
+        $f7.dialog.close();
+        $f7.dialog.alert("Usuario ou senha errados!");
+      });
+      console.log(promisseLogin);
+    };
+
     return $render;
   };
 </script>
