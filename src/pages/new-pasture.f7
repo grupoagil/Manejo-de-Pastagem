@@ -1,5 +1,5 @@
 <template>
-  <div class="page" data-name="home">
+  <div class="page" data-name="novoperiodo">
     <div class="topo-login d-flex flex-column space-between">
       <div class="logo-base-topo">
         <a href="/" class="circle-white"><img src="${imgArrow}" alt="" /></a>

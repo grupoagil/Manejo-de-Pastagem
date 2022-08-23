@@ -1,5 +1,5 @@
 <template>
-  <div class="page" data-name="home">
+  <div class="page" data-name="">
 
     <div class="topo-login2 d-flex flex-column space-between">
 
