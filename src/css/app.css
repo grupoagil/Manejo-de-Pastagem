@@ -1122,7 +1122,7 @@ a p {
   padding: 0rem 1rem;
   display: grid;
   gap: 2rem;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
   grid-template-rows: 170px;
   grid-template-areas:
     ' a b c '
@@ -1134,12 +1134,58 @@ a p {
   align-items: center;
 }
 
+.picket-edit{
+  right: 0;
+  width: 1.45rem;
+  height: 1.45rem;
+  border-radius: 0.75rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 0.3125rem;
+  background-color: #D7B849;
+  margin-left: auto;
+  padding: 1rem;
+}
+.picket-edit i{
+  font-size: 1rem;
+  color: white;
+}
+
+.picket-remove{
+  right: 0;
+  width: 1.45rem;
+  height: 1.45rem;
+  border-radius: 0.75rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 0.3125rem;
+  background-color: #952020;
+  margin-left: .5rem;
+  padding: 1rem;
+}
+.picket-remove i{
+  font-size: 1rem;
+  color: white;
+}
+
 .picket-green {
   width: 4px;
   height: 19px;
   background: #00AA6B;
   border-radius: 50px;
   margin-right: 0.25rem;
+}
+
+.box-picket-toptitle{
+  width: 100%;
+  display: inline-flex;
+}
+
+.box-picket-toptitle .box-picket-remove{
+  padding: .9rem;
+  margin-top: -.2rem;
 }
 
 .box-picket {
@@ -1185,11 +1231,32 @@ a p {
   font-size: 16px;
   color: #444655;
   margin-bottom: 0.625rem;
+  width: 100%;
+}
+
+.box-picket-remove{
+  right: 0;
+  width: 1.45rem;
+  height: 1.45rem;
+  border-radius: 0.75rem;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 0.3125rem;
+  background-color: #952020;
+  margin-left: auto;
+  padding: 1rem;
+}
+.box-picket-remove i{
+  font-size: 1rem;
+  color: white;
 }
 
 .box-picket-text {
+  font-size: .8rem;
   width: 100%;
   min-height: 3.125rem;
+  padding-bottom: 1rem;
 }
 
 .box-picket-status {
@@ -1210,7 +1277,7 @@ a p {
 .box-add-picket {
   width: 100%;
   height: auto;
-  padding: 0.5625rem;
+  padding: 4rem 1rem;
   display: flex;
   justify-content: center;
   align-items: center;

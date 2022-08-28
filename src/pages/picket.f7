@@ -22,160 +22,91 @@
           </a>
         </div>
       </div>
-
       <div class="rule-green"></div>
-
-      <div class="margin">
-        <div class="picket-title">
-          <div class="picket-green"></div>
-
-          <div class="picket-text">Fazenda Santa Maria</div>
-        </div>
-      </div>
-
-      <div class="all-picket">
-        <div class="box-picket">
-          <div class="box-picket-top">
-            <div class="box-picket-number status-success">01</div>
-            <div class="box-picket-title">Piquete 1</div>
-            <div class="box-picket-text">inf. piquete</div>
-          </div>
-
-          <div class="box-picket-bottom">
-            <div class="box-picket-status status-success">Desocupado</div>
+      <!-- Carregando -->
+      ${loading ? $h`
+        <div class="margin skeleton-text skeleton-effect-${effect}">
+          <div class="picket-title">
+            <div class="picket-green"></div>
+            <div class="picket-text">Carregando...</div>
           </div>
         </div>
-
-        <div class="box-picket">
-          <div class="box-picket-top">
-            <div class="box-picket-number status-alert">02</div>
-            <div class="box-picket-title">Piquete 1</div>
-            <div class="box-picket-text">inf. piquete</div>
+        <div class="all-picket skeleton-text skeleton-effect-${effect}">
+          <div class="box-picket">
+            <div class="box-picket-top">
+              <div class="box-picket-number status-alert">...</div>
+              <div class="box-picket-title">Carregando...</div>
+              <div class="box-picket-text">Carregando...</div>
+            </div>
+            <div class="box-picket-bottom">
+              <div class="box-picket-status status-alert">Carregando...</div>
+            </div>
           </div>
-
-          <div class="box-picket-bottom">
-            <div class="box-picket-status status-alert">Ocupado</div>
+          <div class="box-picket">
+            <div class="box-picket-top">
+              <div class="box-picket-number status-success">...</div>
+              <div class="box-picket-title">Carregando...</div>
+              <div class="box-picket-text">Carregando...</div>
+            </div>
+            <div class="box-picket-bottom">
+              <div class="box-picket-status status-success">Carregando...</div>
+            </div>
           </div>
+          <a class="box-add-picket">
+            <div class="add-picket">+</div>
+          </a>
         </div>
-
-        <div class="box-picket">
-          <div class="box-picket-top">
-            <div class="box-picket-number status-alert">03</div>
-            <div class="box-picket-title">Piquete 1</div>
-            <div class="box-picket-text">inf. piquete</div>
-          </div>
-
-          <div class="box-picket-bottom">
-            <div class="box-picket-status status-alert">Ocupado</div>
-          </div>
-        </div>
-
-        <div class="box-picket">
-          <div class="box-picket-top">
-            <div class="box-picket-number status-alert">04</div>
-            <div class="box-picket-title">Piquete 1</div>
-            <div class="box-picket-text">inf. piquete</div>
-          </div>
-
-          <div class="box-picket-bottom">
-            <div class="box-picket-status status-alert">Ocupado</div>
-          </div>
-        </div>
-
-        <div class="box-picket">
-          <div class="box-picket-top">
-            <div class="box-picket-number status-alert">05</div>
-            <div class="box-picket-title">Piquete 1</div>
-            <div class="box-picket-text">inf. piquete</div>
-          </div>
-
-          <div class="box-picket-bottom">
-            <div class="box-picket-status status-alert">Ocupado</div>
-          </div>
-        </div>
-
-        <a class="box-add-picket">
-          <div class="add-picket">+</div>
-        </a>
-      </div>
-
-      <div class="rule-green"></div>
-
-      <div class="margin">
-        <div class="picket-title">
-          <div class="picket-green"></div>
-
-          <div class="picket-text">Fazenda São João</div>
-        </div>
-      </div>
-
-      <div class="all-picket">
-        <div class="box-picket">
-          <div class="box-picket-top">
-            <div class="box-picket-number status-alert">01</div>
-            <div class="box-picket-title">Piquete 1</div>
-            <div class="box-picket-text">inf. piquete</div>
-          </div>
-
-          <div class="box-picket-bottom">
-            <div class="box-picket-status status-alert">Ocupado</div>
-          </div>
-        </div>
-
-        <div class="box-picket">
-          <div class="box-picket-top">
-            <div class="box-picket-number status-success">01</div>
-            <div class="box-picket-title">Piquete 1</div>
-            <div class="box-picket-text">inf. piquete</div>
-          </div>
-
-          <div class="box-picket-bottom">
-            <div class="box-picket-status status-success">Desocupado</div>
-          </div>
-        </div>
-
-        <div class="box-picket">
-          <div class="box-picket-top">
-            <div class="box-picket-number status-alert">02</div>
-            <div class="box-picket-title">Piquete 1</div>
-            <div class="box-picket-text">inf. piquete</div>
-          </div>
-
-          <div class="box-picket-bottom">
-            <div class="box-picket-status status-alert">Ocupado</div>
-          </div>
-        </div>
-
-        <div class="box-picket">
-          <div class="box-picket-top">
-            <div class="box-picket-number status-alert">01</div>
-            <div class="box-picket-title">Piquete 1</div>
-            <div class="box-picket-text">inf. piquete</div>
-          </div>
-
-          <div class="box-picket-bottom">
-            <div class="box-picket-status status-alert">Ocupado</div>
-          </div>
-        </div>
-
-        <div class="box-picket">
-          <div class="box-picket-top">
-            <div class="box-picket-number status-alert">01</div>
-            <div class="box-picket-title">Piquete 1</div>
-            <div class="box-picket-text">inf. piquete</div>
-          </div>
-
-          <div class="box-picket-bottom">
-            <div class="box-picket-status status-alert">Ocupado</div>
-          </div>
-        </div>
-
-        <a class="box-add-picket">
-          <div class="add-picket">+</div>
-        </a>
-      </div>
+      ` : $h` <!-- Carregando -->
+      <!-- Verifica quantidade Fazendas -->
+        ${fazendas.length > 0 ? $h`
+          <!-- Percorre Fazendas -->
+          ${fazendas.map((fazenda,key) => $h`
+            <div class="margin">
+              <div class="picket-title">
+                <div class="picket-green"></div>
+                <div class="picket-text">${fazenda.FAZENDA_NOME}</div>
+                <div class="picket-edit"><i class="material-icons">edit</i></div>
+                <div class="picket-remove"><i class="material-icons">delete</i></div>
+              </div>
+            </div>
+            <div class="all-picket">
+              <!-- Percorre os Piquetes -->
+              ${fazenda.piquetes.map((piquete) => $h`
+                <div class="box-picket">
+                  <div class="box-picket-top">
+                    <div class="box-picket-toptitle">
+                      <div class="box-picket-number status-${(piquete.PIQUETE_OCUPADO)?'alert':'success'}">${piquete.PIQUETE_INDEX}</div>
+                      <div class="box-picket-remove"><i class="material-icons">delete</i></div>
+                    </div>
+                    <div class="box-picket-title">Piquete ${piquete.PIQUETE_INDEX}</div>
+                    <div class="box-picket-text">
+                      Última Ocupação: <br></br><b>${(piquete.PIQUETE_ULTIMA_OCUPACAO == null)?'Sem Data':piquete.PIQUETE_ULTIMA_OCUPACAO}</b><br></br>
+                      Última Desocupação: <br></br><b>${(piquete.PIQUETE_ULTIMA_DESOCUPACAO == null)?'Sem Data':piquete.PIQUETE_ULTIMA_DESOCUPACAO}</b><br></br>
+                    </div>
+                  </div>
+                  <div class="box-picket-bottom">
+                    <div class="box-picket-status status-${(piquete.PIQUETE_OCUPADO)?'alert':'success'}">${(piquete.PIQUETE_OCUPADO)?'Ocupado':'Descoupado'}</div>
+                  </div>
+                </div>
+              `)}
+              <!-- Percorre os Piquetes -->
+              <a class="box-add-picket">
+                <div class="add-picket">+</div>
+              </a>
+            </div>
+            <!-- Verifica se é a última fazenda para não colocar a seperação -->
+            ${key != (fazendas.length - 1) ? $h`
+              <div class="picket-green"></div>
+            `: $h`<br></br>`}
+            <!-- Verifica se é a última fazenda para não colocar a seperação -->
+          `)} 
+          <!-- Percorre Fazendas -->
+        ` : $h`
+        `}
+        <!-- Verifica quantidade Fazendas -->
+      `}
+      <!-- Carregando -->
       <!-- Rodapé -->
-
       <div class="gram"></div>
     </div>
   </div>
@@ -192,10 +123,30 @@
   import imgSubtract from "../assets/icons/subtract.svg";
   import imgSuccess from "../assets/icons/success.svg";
   import imgProfile from "../assets/icons/profile.svg";
-
   import imgLittleGram from "../assets/icons/little-gram.png";
+  import api from "../js/api.js";
 
-  export default () => {
+  export default (props, { $update }) => {
+    let loading = true;
+    let effect = "fade";
+    let fazendas;
+    let userName = localStorage.getItem("username");
+    api.pageIsVisible('div[data-name="picket"]', (e) => {
+      loading=true;
+      $update();
+      // Atualiza página quando estiver visível
+      api.fazendas
+        .info()
+        .then((r) => {
+          fazendas = r.data;
+          console.log(fazendas);
+          loading=false;
+          $update();
+        })
+        .catch((e) => {
+          console.log("False Error");
+        });
+    });
     return $render;
   };
 </script>

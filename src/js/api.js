@@ -61,6 +61,37 @@ var api = {
             return promisse;
         }
     },
+    fazendas:{
+        info:()=>{
+            var promisse = new Promise((sim,nao)=>{
+                var token = localStorage.getItem('token');
+                $f7.request({
+                    url: api.base+'/fazendas/lista', 
+                    method: 'GET',
+                    headers: {
+                        Authorization: "Bearer "+token
+                    }
+                })
+                .then(function (res) {
+                    var json = res.data;
+                    try {
+                        json = JSON.parse(json);
+                        if(json.success){
+                            sim(json);
+                        }else{
+                            nao();
+                        }
+                    } catch (error) {
+                        nao();
+                    }
+                })
+                .catch(function (err) {
+                    nao();
+                });
+            });
+            return promisse;
+        }
+    },
     pageIsVisible: (id, fn) => {
         if (window.pageIsVisible == null) {
             window.pageIsVisible = false;
