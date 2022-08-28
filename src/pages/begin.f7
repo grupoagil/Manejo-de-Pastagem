@@ -78,6 +78,7 @@
     let userName = localStorage.getItem('username');
     api.pageIsVisible('div[data-name="home"]',(e)=>{
       // Atualiza página quando estiver visível
+      console.log("True");
     });
 
     return $render;
