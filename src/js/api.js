@@ -30,6 +30,35 @@ var api = {
                 });
             });
             return promessa;
+        },
+        info:()=>{
+            var promisse = new Promise((sim,nao)=>{
+                var token = localStorage.getItem('token');
+                $f7.request({
+                    url: api.base+'/info', 
+                    method: 'GET',
+                    headers: {
+                        Authorization: "Bearer "+token
+                    }
+                })
+                .then(function (res) {
+                    var json = res.data;
+                    try {
+                        json = JSON.parse(json);
+                        if(json.success){
+                            sim(json);
+                        }else{
+                            nao();
+                        }
+                    } catch (error) {
+                        nao();
+                    }
+                })
+                .catch(function (err) {
+                    nao();
+                });
+            });
+            return promisse;
         }
     },
     pageIsVisible: (id, fn) => {

@@ -18,6 +18,38 @@
       <div class="box-profile-text">Olá ${userName}</div>
     </div>
 
+    ${loading ? $h`
+    <div class="all-box mt-percent-1 skeleton-text skeleton-effect-${effect}">
+      <a
+        href="#"
+        class="box-shadow2 d-flex flex-column space-between"
+      >
+        <div class="shadow2-top">
+          <div class="circle-gray"></div>
+          <div class="box2-title">Carregando...</div>
+        </div>
+        <div class="shadow2-bottom">
+          <div class="box2-subtitle">Carregando...</div>
+        </div>
+      </a>
+      <a href="#" class="box-shadow2 d-flex flex-column space-between">
+        <div class="shadow2-top">
+          <div class="circle-gray"></div>
+          <div class="box2-title">Carregando...</div>
+        </div>
+        <div class="shadow2-bottom">
+          <div class="box2-subtitle">Carregando...</div>
+        </div>
+      </a>
+      <a href="#" class="box-shadow2 d-flex flex-column space-between">
+        <div class="shadow2-top">
+          <div class="circle-gray"></div>
+          <div class="box2-title">Carregando...</div>
+        </div>
+      </a>
+      <!-- Perfil do profissional-->
+    </div>
+    ` : $h`
     <div class="all-box mt-percent-1">
       <a
         href="/typePicket/"
@@ -27,35 +59,34 @@
           <div class="circle-gray"><i class="material-icons">eco</i></div>
           <div class="box2-title">Tipos de pasto</div>
         </div>
-
         <div class="shadow2-bottom">
-          <div class="box2-subtitle">Total 8</div>
+          <div class="box2-subtitle">Total: ${pastos}</div>
         </div>
       </a>
-
       <a href="/picket/" class="box-shadow2 d-flex flex-column space-between">
         <div class="shadow2-top">
-          <div class="circle-gray"><i class="material-icons">dynamic_feed</i></div>
+          <div class="circle-gray">
+            <i class="material-icons">dynamic_feed</i>
+          </div>
           <div class="box2-title">Piquetes</div>
         </div>
-
         <div class="shadow2-bottom">
-          <div class="box2-subtitle">Total 8</div>
+          <div class="box2-subtitle">
+            Fazendas: ${fazendas} <br></br>
+            Piquetes: ${piquetes}
+          </div>
         </div>
       </a>
-
       <a href="/settings/" class="box-shadow2 d-flex flex-column space-between">
         <div class="shadow2-top">
           <div class="circle-gray"><i class="material-icons">settings</i></div>
           <div class="box2-title">Configurações</div>
         </div>
       </a>
-
       <!-- Perfil do profissional-->
     </div>
-
+    `}
     <!-- Rodapé -->
-
     <div class="gram"></div>
   </div>
 </template>
@@ -74,11 +105,27 @@
 
   import imgLittleGram from "../assets/icons/little-gram.png";
   import api from "../js/api.js";
-  export default () => {
-    let userName = localStorage.getItem('username');
-    api.pageIsVisible('div[data-name="home"]',(e)=>{
+  export default (props, { $update }) => {
+    let loading = true;
+    let effect = "fade";
+    let pastos = 0, fazendas = 0, piquetes = 0;
+    let userName = localStorage.getItem("username");
+    api.pageIsVisible('div[data-name="home"]', (e) => {
+      loading=true;
+      $update();
       // Atualiza página quando estiver visível
-      console.log("True");
+      api.auth
+        .info()
+        .then((r) => {
+          pastos = r.data.pastos;
+          fazendas = r.data.fazendas.count;
+          piquetes = r.data.fazendas.piquetes;
+          loading=false;
+          $update();
+        })
+        .catch((e) => {
+          console.log("False Error");
+        });
     });
 
     return $render;
