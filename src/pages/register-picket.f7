@@ -1,5 +1,5 @@
 <template>
-  <div class="page" data-name="novopasto">
+  <div class="page" data-name="novoperiodo">
     <div class="topo-login d-flex flex-column space-between">
       <div class="logo-base-topo">
         <div class="left">
@@ -10,52 +10,37 @@
         <div class="logo-topo">
           <img src="${imgLogoLogin}" alt="" />
         </div>
-        <div class="login-topo">Cadastrar pasto</div>
+        <div class="login-topo">Cadastrar Pasto</div>
       </div>
       <div class="little-gram"></div>
     </div>
-    <div class="margin m-01">Para se cadastrar, preencha os campos abaixo</div>
     <div class="d-flex flex-column justify-center mt-percent-1">
       <div class="item-inner margin">
-        <div class="item-title item-label title-05 mb-1">Nome do período</div>
+        <div class="item-title item-label title-05 mb-1">Tipo de pasto</div>
         <div class="item-input-wrap template-box p-1">
-          <input type="email" placeholder="Descreva o período" class="w-100" />
-        </div>
-      </div>
-      <div class="d-flex space-between">
-        <div class="item-content item-input margin">
-          <div class="item-inner">
-            <div class="item-title item-label title-05 mb-1">Data inicial</div>
-            <div class="item-input-wrap template-box p-0-5">
-              <input type="date" placeholder="Birth day" value="2021-03-19" />
-            </div>
-          </div>
-        </div>
-        <div class="item-content item-input margin">
-          <div class="item-inner">
-            <div class="item-title item-label title-05 mb-1">Data final</div>
-            <div class="item-input-wrap template-box p-0-5">
-              <input type="date" placeholder="Birth day" value="2021-03-19" />
-            </div>
-          </div>
+          <select name="pasto_tipo" class="w-100">
+            <option value="null" selected disabled>Selecione o Tipo de Pasto</option>
+            <option value="MARANDU OU BRACHIARÃO (BRACHIARIA BRIZANTHA)">MARANDU OU BRACHIARÃO (BRACHIARIA BRIZANTHA)</option>
+            <option value="BRACHIARIA DECUMBENS">BRACHIARIA DECUMBENS</option>
+            <option value="BRACHIARIA HUMIDICOLA">BRACHIARIA HUMIDICOLA</option>
+            <option value="BRACHIARIA RUZIZIENSIS">BRACHIARIA RUZIZIENSIS</option>
+            <option value="CAPIM MOMBAÇA (PANICUM MAXIMUM)">CAPIM MOMBAÇA (PANICUM MAXIMUM)</option>
+          </select>
         </div>
       </div>
       <div class="item-inner margin">
-        <div class="item-title item-label title-05 mb-1">
-          Pasto a ser utilizado período
-        </div>
+        <div class="item-title item-label title-05 mb-1">Nome do Pasto</div>
         <div class="item-input-wrap template-box p-1">
-          <input type="email" placeholder="Descreva o período" class="w-100" />
+          <input type="text" name="pasto_nome" placeholder="Descreva o nome do pasto" class="w-100" />
         </div>
       </div>
       <div class="margin">
-        <div style="width: 100%">
-          <a href="#" class="btn-green">
+        <div style="width: 100%;">
+          <a href="#" class="btn-green" @click="${createPasto}">
             <p class="title-03 white-color">Cadastrar</p>
           </a>
         </div>
       </div>
-
       <!-- Perfil do profissional-->
     </div>
   </div>
@@ -72,10 +57,36 @@
   import imgSubtract from "../assets/icons/subtract.svg";
   import imgSuccess from "../assets/icons/success.svg";
   import imgProfile from "../assets/icons/profile.svg";
-
   import imgLittleGram from "../assets/icons/little-gram.png";
+  import api from "../js/api.js";
+  import $$ from "dom7";
 
-  export default () => {
+  export default (props, { $f7, $update }) => {
+
+    const createPasto = () => {
+      // Se tiver erros
+      if ($$('select[name="pasto_tipo"]').val() == null || $$('input[name="pasto_nome"]').val() == "" || $$('input[name="pasto_nome"]').val() == null) {
+        $f7.dialog.alert('Erro! Preencha todos os campos.');
+        setTimeout(()=>{
+          $f7.dialog.close();
+        },2000);
+      }else{ // Se não tiver erros
+        $f7.dialog.preloader('Adicionando pasto ...');
+        api.pastos.novo({
+            "pasto_nome":$$('input[name="pasto_nome"]').val(),
+            "pasto_tipo":$$('select[name="pasto_tipo"]').val()
+        }).then((succss)=>{
+          $f7.dialog.close();
+          $f7.dialog.alert('Pasto Adicionado com sucesso!');
+          setTimeout(()=>{$f7.dialog.close();},2000);
+        }).catch(()=>{
+          // Error
+          $f7.dialog.close();
+          $f7.dialog.alert('Pasto não adicionado!');
+          setTimeout(()=>{$f7.dialog.close();},2000);
+        });
+      }
+    };
     return $render;
   };
 </script>

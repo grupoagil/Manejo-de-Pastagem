@@ -10,37 +10,86 @@
         <div class="logo-topo">
           <img src="${imgLogoLogin}" alt="" />
         </div>
-
         <div class="login-topo">Tipos de pasto</div>
       </div>
-
       <div class="little-gram"></div>
     </div>
-
-    <div class="d-flex flex-column justify-center mt-percent-1">
+    <div class="d-flex flex-column justify-center mt-percent-1 ${loading ? $h`skeleton-text skeleton-effect-${effect}` : $h`none`}">
       <div class="margin d-flex">
         <div style="width: 100%;">
           <a href="/registerPeriod/" class="btn-green">
-            <p class="title-03 white-color">Nova Período</p>
+            <p class="title-03 white-color">Novo Período</p>
           </a>
         </div>
-
         <div class="margin"></div>
-
         <div style="width: 100%;">
           <a href="/registerPicket/" class="btn-green">
             <p class="title-03 white-color">Nova Pasto</p>
           </a>
         </div>
       </div>
-
       <div class="margin d-flex flex-column align-items-center">
         <div class="info-today-text">Informação do perídodo atual de pasto</div>
-
-        <textarea class="box-textarea" placeholder="Informaçao"></textarea>
+        <div class="all-picket box-textarea">
+          ${periodos.map((periodo) => $h`
+            ${((new Date(periodo.PASTO_DATA_INICIAL+' 00:00:00')).getTime() < (new Date()).getTime() && (new Date(periodo.PASTO_DATA_FINAL+' 00:00:00')).getTime() > (new Date()).getTime()) ? $h`
+              <div class="box-picket">
+                <div class="box-picket-top">
+                  <div class="box-picket-title">${periodo.PASTO_PERIODO_NOME}</div>
+                  <div class="box-picket-text">
+                    <b>
+                      Data Inicial: <br></br>
+                      ${(periodo.PASTO_DATA_INICIAL == null)?'Sem Data':dateFormatter(periodo.PASTO_DATA_INICIAL)}<br></br>
+                      Data Final: <br></br>
+                      ${(periodo.PASTO_DATA_FINAL == null)?'Sem Data':dateFormatter(periodo.PASTO_DATA_FINAL)}<br></br>
+                      Pasto: <br></br>
+                      ${periodo.pasto.PASTO_NOME} ( ${periodo.pasto.PASTO_TIPO} )
+                    </b>
+                  </div>
+                </div>
+                <div class="box-picket-bottom">
+                  <div class="box-picket-status status-success">Dentro do Período</div>
+                </div>
+              </div>
+            `: $h`<br></br>`}
+          `)}
+        </div>
       </div>
-
-      <!-- Perfil do profissional-->
+      <!-- Lista de Períodos -->
+      <div class="margin">
+        <div class="picket-title">
+          <div class="picket-green"></div>
+          <div class="picket-text">Períodos do Sistema</div>
+        </div>
+      </div>
+      <div class="all-picket">
+        ${periodos.map((periodo) => $h`
+          <div class="box-picket">
+            <div class="box-picket-top">
+              <div class="box-picket-toptitle">
+                ${((new Date(periodo.PASTO_DATA_INICIAL+' 00:00:00')).getTime() <= (new Date()).getTime() && (new Date(periodo.PASTO_DATA_FINAL+' 00:00:00')).getTime() >= (new Date()).getTime()) ? $h`
+                <div class="box-picket-number status-success"><i class="material-icons">done</i></div>
+                `: $h`<br></br>`}
+                <div class="box-picket-remove" @click="${()=>{deletePeriodo(periodo)}}"><i class="material-icons">delete</i></div>
+              </div>
+              <div class="box-picket-title">${periodo.PASTO_PERIODO_NOME}</div>
+              <div class="box-picket-text">
+                <b>
+                  Data Inicial: <br></br>
+                  ${(periodo.PASTO_DATA_INICIAL == null)?'Sem Data':dateFormatter(periodo.PASTO_DATA_INICIAL)}<br></br>
+                  Data Final: <br></br>
+                  ${(periodo.PASTO_DATA_FINAL == null)?'Sem Data':dateFormatter(periodo.PASTO_DATA_FINAL)}<br></br>
+                  Pasto: <br></br>
+                  ${periodo.pasto.PASTO_NOME} ( ${periodo.pasto.PASTO_TIPO} )
+                </b>
+              </div>
+            </div>
+          </div>
+        `)}
+      </div>
+      <!-- Lista de Períodos -->
+        <!-- Rodapé -->
+      <div class="gram position-relative"></div>
     </div>
   </div>
 </template>
@@ -56,10 +105,51 @@
   import imgSubtract from "../assets/icons/subtract.svg";
   import imgSuccess from "../assets/icons/success.svg";
   import imgProfile from "../assets/icons/profile.svg";
-
   import imgLittleGram from "../assets/icons/little-gram.png";
+  import api from "../js/api.js";
+  import $$ from "dom7";
 
-  export default () => {
+  export default (props, { $f7, $update }) => {
+    let loading = false;
+    let effect = "fade";
+    var preloader;
+    let periodos = [];
+    // Carrega informações da página
+    api.pageIsVisible('div[data-name="tiposdepastos"]', (e) => {
+      loading=true;
+      $update();
+      api.pastos.periodos
+      .lista()
+      .then((r) => {
+        periodos = r.data;
+        loading=false;
+        $update();
+      })
+      .catch((e) => {
+        loading=false;
+        $update();
+      });
+    });
+    // Remover Período
+    const deletePeriodo = (periodo) => {
+      $f7.dialog.confirm('Deseja realmente apagar o Período '+periodo.PASTO_PERIODO_NOME+'?', function () {
+        // Sim  
+        $f7.dialog.preloader('Removendo período ...');
+        api.pastos.periodos.apagar(periodo.id).then((succs)=>{
+          $f7.dialog.close();
+          $f7.dialog.alert('Período removido com sucesso!');
+          setTimeout(()=>{$f7.dialog.close();},2000);
+        }).catch((err)=>{
+          $f7.dialog.close();
+          $f7.dialog.alert('Período não removido! Erro, Tente novamente!');
+          setTimeout(()=>{$f7.dialog.close();},2000);
+        });
+      });
+    };
+    // Formatação de Datas
+    const dateFormatter = (date) => {
+      return (new Date(date+' 00:00:00')).toLocaleDateString();
+    };
     return $render;
   };
 </script>

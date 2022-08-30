@@ -176,6 +176,184 @@ var api = {
                 });
                 return promessa;
             }
+        }        
+    },
+    pastos:{
+        lista:()=>{
+            var promisse = new Promise((sim,nao)=>{
+                var token = localStorage.getItem('token');
+                $f7.request({
+                    url: api.base+'/pastos/lista', 
+                    method: 'GET',
+                    headers: {
+                        Authorization: "Bearer "+token
+                    }
+                })
+                .then(function (res) {
+                    var json = res.data;
+                    try {
+                        json = JSON.parse(json);
+                        if(json.success){
+                            sim(json);
+                        }else{
+                            nao();
+                        }
+                    } catch (error) {
+                        nao();
+                    }
+                })
+                .catch(function (err) {
+                    nao();
+                });
+            });
+            return promisse;
+        },
+        novo:(json={})=>{
+            var promessa = new Promise((sim,nao)=>{
+                var token = localStorage.getItem('token');
+                $f7.request.setup({
+                    headers: {
+                        'Authorization': 'Bearer '+token
+                    }
+                })
+                $f7.request.postJSON(api.base+'/pastos/novo',json)
+                .then(function (res) {
+                    var json = res.data;
+                    try {
+                        // json = JSON.parse(json);
+                        if(json.success){
+                            sim(json);
+                        }else{
+                            nao();
+                        }
+                    } catch (error) {
+                        nao(error);
+                    }
+                })
+                .catch(function (err) {
+                    nao(err);
+                });
+            });
+            return promessa;
+        },
+        apagar:(id)=>{
+            var promessa = new Promise((sim,nao)=>{
+                var token = localStorage.getItem('token');
+                $f7.request.setup({
+                    headers: {
+                        'Authorization': 'Bearer '+token
+                    }
+                })
+                $f7.request.postJSON(api.base+'/pastos/apagar',{
+                    "id":id
+                })
+                .then(function (res) {
+                    var json = res.data;
+                    try {
+                        // json = JSON.parse(json);
+                        if(json.success){
+                            sim(json);
+                        }else{
+                            nao();
+                        }
+                    } catch (error) {
+                        nao(error);
+                    }
+                })
+                .catch(function (err) {
+                    nao(err);
+                });
+            });
+            return promessa;
+        },
+        periodos:{
+            lista:()=>{
+                var promisse = new Promise((sim,nao)=>{
+                    var token = localStorage.getItem('token');
+                    $f7.request({
+                        url: api.base+'/pastos/periodos/lista', 
+                        method: 'GET',
+                        headers: {
+                            Authorization: "Bearer "+token
+                        }
+                    })
+                    .then(function (res) {
+                        var json = res.data;
+                        try {
+                            json = JSON.parse(json);
+                            if(json.success){
+                                sim(json);
+                            }else{
+                                nao();
+                            }
+                        } catch (error) {
+                            nao();
+                        }
+                    })
+                    .catch(function (err) {
+                        nao();
+                    });
+                });
+                return promisse;
+            },
+            novo:(json={})=>{
+                var promessa = new Promise((sim,nao)=>{
+                    var token = localStorage.getItem('token');
+                    $f7.request.setup({
+                        headers: {
+                            'Authorization': 'Bearer '+token
+                        }
+                    })
+                    $f7.request.postJSON(api.base+'/pastos/periodos/novo',json)
+                    .then(function (res) {
+                        var json = res.data;
+                        try {
+                            // json = JSON.parse(json);
+                            if(json.success){
+                                sim(json);
+                            }else{
+                                nao();
+                            }
+                        } catch (error) {
+                            nao(error);
+                        }
+                    })
+                    .catch(function (err) {
+                        nao(err);
+                    });
+                });
+                return promessa;
+            },
+            apagar:(id)=>{
+                var promessa = new Promise((sim,nao)=>{
+                    var token = localStorage.getItem('token');
+                    $f7.request.setup({
+                        headers: {
+                            'Authorization': 'Bearer '+token
+                        }
+                    })
+                    $f7.request.postJSON(api.base+'/pastos/periodos/apagar',{
+                        "id":id
+                    })
+                    .then(function (res) {
+                        var json = res.data;
+                        try {
+                            // json = JSON.parse(json);
+                            if(json.success){
+                                sim(json);
+                            }else{
+                                nao();
+                            }
+                        } catch (error) {
+                            nao(error);
+                        }
+                    })
+                    .catch(function (err) {
+                        nao(err);
+                    });
+                });
+                return promessa;
+            }
         }
     },
     pageIsVisible: (id, fn) => {
