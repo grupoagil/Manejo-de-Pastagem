@@ -90,6 +90,92 @@ var api = {
                 });
             });
             return promisse;
+        },
+        piquetes:{
+            add:(fazenda)=>{
+                var promessa = new Promise((sim,nao)=>{
+                    var token = localStorage.getItem('token');
+                    $f7.request.setup({
+                        headers: {
+                            'Authorization': 'Bearer '+token
+                        }
+                    })
+                    $f7.request.postJSON(api.base+'/fazendas/'+fazenda+'/piquetes/novo',{})
+                    .then(function (res) {
+                        var json = res.data;
+                        try {
+                            // json = JSON.parse(json);
+                            if(json.success){
+                                sim(json);
+                            }else{
+                                nao();
+                            }
+                        } catch (error) {
+                            nao(error);
+                        }
+                    })
+                    .catch(function (err) {
+                        nao(err);
+                    });
+                });
+                return promessa;
+            },
+            delete:(json={},fazenda)=>{
+                var promessa = new Promise((sim,nao)=>{
+                    var token = localStorage.getItem('token');
+                    $f7.request.setup({
+                        headers: {
+                            'Authorization': 'Bearer '+token
+                        }
+                    })
+                    $f7.request.postJSON(api.base+'/fazendas/'+fazenda+'/piquetes/apagar',json)
+                    .then(function (res) {
+                        var json = res.data;
+                        try {
+                            // json = JSON.parse(json);
+                            if(json.success){
+                                sim(json);
+                            }else{
+                                nao();
+                            }
+                        } catch (error) {
+                            nao(error);
+                        }
+                    })
+                    .catch(function (err) {
+                        nao(err);
+                    });
+                });
+                return promessa;
+            },
+            atualiza:(json={},fazenda)=>{
+                var promessa = new Promise((sim,nao)=>{
+                    var token = localStorage.getItem('token');
+                    $f7.request.setup({
+                        headers: {
+                            'Authorization': 'Bearer '+token
+                        }
+                    })
+                    $f7.request.postJSON(api.base+'/fazendas/'+fazenda+'/piquetes/atualiza',json)
+                    .then(function (res) {
+                        var json = res.data;
+                        try {
+                            // json = JSON.parse(json);
+                            if(json.success){
+                                sim(json);
+                            }else{
+                                nao();
+                            }
+                        } catch (error) {
+                            nao(error);
+                        }
+                    })
+                    .catch(function (err) {
+                        nao(err);
+                    });
+                });
+                return promessa;
+            }
         }
     },
     pageIsVisible: (id, fn) => {

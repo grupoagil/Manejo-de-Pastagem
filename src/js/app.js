@@ -21,7 +21,7 @@ import App from '../app.f7';
 var device = getDevice();
 var app = new Framework7({
   name: 'Manejo de Pastagem', // App name
-  theme: 'auto', // Automatic theme detection
+  theme: 'ios', // Automatic theme detection
   el: '#app', // App root element
   component: App, // App main component
   id: 'br.edu.ufra.manejopastagem', // App bundle ID

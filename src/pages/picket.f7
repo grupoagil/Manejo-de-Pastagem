@@ -72,16 +72,16 @@
             <div class="all-picket">
               <!-- Percorre os Piquetes -->
               ${fazenda.piquetes.map((piquete) => $h`
-                <div class="box-picket">
+                <div class="box-picket boxid-${piquete.PIQUETE_INDEX}" @click="${()=>{editPiquete(piquete)}}">
                   <div class="box-picket-top">
                     <div class="box-picket-toptitle">
                       <div class="box-picket-number status-${(piquete.PIQUETE_OCUPADO)?'alert':'success'}">${piquete.PIQUETE_INDEX}</div>
-                      <div class="box-picket-remove"><i class="material-icons">delete</i></div>
+                      <div class="box-picket-remove" @click="${()=>{deletePiquete(piquete)}}"><i class="material-icons">delete</i></div>
                     </div>
                     <div class="box-picket-title">Piquete ${piquete.PIQUETE_INDEX}</div>
                     <div class="box-picket-text">
-                      Última Ocupação: <br></br><b>${(piquete.PIQUETE_ULTIMA_OCUPACAO == null)?'Sem Data':piquete.PIQUETE_ULTIMA_OCUPACAO}</b><br></br>
-                      Última Desocupação: <br></br><b>${(piquete.PIQUETE_ULTIMA_DESOCUPACAO == null)?'Sem Data':piquete.PIQUETE_ULTIMA_DESOCUPACAO}</b><br></br>
+                      Última Ocupação: <br></br><b>${(piquete.PIQUETE_ULTIMA_OCUPACAO == null)?'Sem Data':dateFormatter(piquete.PIQUETE_ULTIMA_OCUPACAO)}</b><br></br>
+                      Última Desocupação: <br></br><b>${(piquete.PIQUETE_ULTIMA_DESOCUPACAO == null)?'Sem Data':dateFormatter(piquete.PIQUETE_ULTIMA_DESOCUPACAO)}</b><br></br>
                     </div>
                   </div>
                   <div class="box-picket-bottom">
@@ -90,7 +90,7 @@
                 </div>
               `)}
               <!-- Percorre os Piquetes -->
-              <a class="box-add-picket">
+              <a class="box-add-picket" @click="${()=>{addPiquete(fazenda)}}">
                 <div class="add-picket">+</div>
               </a>
             </div>
@@ -108,6 +108,7 @@
       <!-- Carregando -->
       <!-- Rodapé -->
       <div class="gram"></div>
+
     </div>
   </div>
 </template>
@@ -126,7 +127,7 @@
   import imgLittleGram from "../assets/icons/little-gram.png";
   import api from "../js/api.js";
 
-  export default (props, { $update }) => {
+  export default (props, { $f7, $update }) => {
     let loading = true;
     let effect = "fade";
     let fazendas;
@@ -139,7 +140,6 @@
         .info()
         .then((r) => {
           fazendas = r.data;
-          console.log(fazendas);
           loading=false;
           $update();
         })
@@ -147,6 +147,89 @@
           console.log("False Error");
         });
     });
+    // Remove duplicidade de click em editar ao clicar em apagar
+    var deleteOpen = false;
+    // Editar Piquete
+    const editPiquete = (piquete) =>{
+      if (!deleteOpen) {
+        // Vertical Buttons
+        $f7.dialog.create({
+          title: 'Editar Piquete '+piquete.PIQUETE_INDEX,
+          text: 'Escolha uma opção a baixo para alterar status do piquete.',
+          buttons: [
+            {
+              text: 'Ocupado',
+              onClick:()=>{
+                $f7.dialog.preloader('Atualizando status para ocupado...');
+                api.fazendas.piquetes.atualiza({
+                    "index":piquete.PIQUETE_INDEX,
+                    "ocupado":true
+                },piquete.FAZENDA_ID).then((sucess)=>{
+                  $f7.dialog.close();
+                }).catch((err)=>{console.log(err)});
+              },
+              color:'yellow'
+            },
+            {
+              text: 'Desocupado',
+              onClick:()=>{
+                $f7.dialog.preloader('Atualizando status para desocupado...');
+                api.fazendas.piquetes.atualiza({
+                    "index":piquete.PIQUETE_INDEX,
+                    "ocupado":false
+                },piquete.FAZENDA_ID).then((sucess)=>{
+                  $f7.dialog.close();
+                }).catch((err)=>{console.log(err)});
+              },
+              color:'green'
+            },
+            {
+              text: 'Cancelar',
+              color:'red'
+            },
+          ],
+          verticalButtons: true,
+        }).open();
+      }
+    };
+    // Apagar Piquete
+    const deletePiquete = (piquete) =>{
+      deleteOpen = true;$update();
+      setTimeout(()=>{deleteOpen=false;$update();},1000);
+      // Pergunta se deseja realmente apagar
+      $f7.dialog.confirm('Deseja realmente apagar o Piquete '+piquete.PIQUETE_INDEX+'?', function () {
+        // Sim  
+        $f7.dialog.preloader('Removendo piquete ...');
+        api.fazendas.piquetes.delete({
+            "index":piquete.PIQUETE_INDEX
+        },piquete.FAZENDA_ID).then((succs)=>{
+          $f7.dialog.close();
+          $f7.dialog.alert('Piquete removido com sucesso!');
+          setTimeout(()=>{$f7.dialog.close();},2000);
+        }).catch((err)=>{
+          console.log(err);
+        });
+      });
+    };
+    // Adicionar Piquete
+    const addPiquete = (fazenda) => {
+      // Pergunta se deseja realmente apagar
+      $f7.dialog.confirm('Deseja realmente adicionar Piquete!?', function () {
+        // Sim  
+        $f7.dialog.preloader('Adicionar piquete ...');
+        api.fazendas.piquetes.add(fazenda.id).then((succs)=>{
+          $f7.dialog.close();
+          $f7.dialog.alert('Piquete Adicionado com sucesso!');
+          setTimeout(()=>{$f7.dialog.close();},2000);
+        }).catch((err)=>{
+          console.log(err);
+        });
+      });
+    };
+    // Formatação de Datas
+    const dateFormatter = (date) => {
+      return (new Date(date)).toLocaleString();
+    };
     return $render;
   };
 </script>

@@ -125,7 +125,9 @@
           $update();
         })
         .catch((e) => {
-          console.log("False Error");
+          localStorage.removeItem('token');
+          localStorage.removeItem('username');
+          window.location.reload();
         });
     });
     return $render;
