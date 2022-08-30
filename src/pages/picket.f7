@@ -351,9 +351,8 @@
         });
       }
     };
-
+    // Apagar fazenda
     const apagarFazenda = (fazenda) => {
-      console.log(fazenda);
       // Pergunta se deseja realmente apagar
       $f7.dialog.confirm('Deseja realmente apagar o Fazenda '+fazenda.FAZENDA_NOME+'?', function () {
         // Sim  
