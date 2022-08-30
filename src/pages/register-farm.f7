@@ -10,25 +10,29 @@
         <div class="logo-topo">
           <img src="${imgLogoLogin}" alt="" />
         </div>
-
         <div class="login-topo">Cadastrar Fazenda</div>
       </div>
-
       <div class="little-gram"></div>
     </div>
-
     <div class="d-flex flex-column justify-center mt-percent-1">
       <div class="item-inner margin">
         <div class="item-title item-label title-05 mb-1">Nome da fazenda</div>
         <div class="item-input-wrap template-box p-1 outline-green">
-          <input type="email" placeholder="Nome da fazenda" class="w-100" />
+          <input type="text" name="fazenda_nome" placeholder="Digita o Nome da fazenda" class="w-100" min="1" max="100" />
         </div>
       </div>
 
       <div class="item-inner margin">
         <div class="item-title item-label title-05 mb-1">Tipo de pasto</div>
         <div class="item-input-wrap template-box p-1">
-          <input type="email" placeholder="05" class="w-100" />
+          <select name="pasto_id" class="w-100">
+            <option value="null" selected disabled>Selecione o Pasto</option>
+            ${pastos.length > 0  ? $h`
+              ${pastos.map((pasto) => $h`
+                <option value="${pasto.id}">${pasto.PASTO_NOME} ( ${pasto.PASTO_TIPO} )</option>
+              `)} 
+            `: $h`<option value="null">Sem Pastos</option>`}
+          </select>
         </div>
       </div>
 
@@ -37,13 +41,13 @@
           Quantidade de piquetes
         </div>
         <div class="item-input-wrap template-box p-1">
-          <input type="number" placeholder="5" class="w-100" />
+          <input type="number" name="piquetes_qnt" placeholder="Digite um valor" class="w-100" />
         </div>
       </div>
 
       <div class="margin">
         <div style="width: 100%">
-          <a href="#" class="btn-green">
+          <a href="#" class="btn-green" @click="${novafazenda}">
             <p class="title-03 white-color">Cadastrar</p>
           </a>
         </div>
@@ -65,10 +69,72 @@
   import imgSubtract from "../assets/icons/subtract.svg";
   import imgSuccess from "../assets/icons/success.svg";
   import imgProfile from "../assets/icons/profile.svg";
-
   import imgLittleGram from "../assets/icons/little-gram.png";
+  import api from "../js/api.js";
+  import $$ from "dom7";
 
-  export default () => {
+  export default (props, { $f7, $update }) => {
+    let pastos = [];
+    let loading = false;
+    var preloader;
+
+    // Carrega informações da página
+    api.pageIsVisible('div[data-name="novafazenda"]', (e) => {
+      if (!loading) {
+        loading = true;
+        preloader = $f7.dialog.preloader('Carregando ...');
+        $update();
+        preloader.eventsListeners.close.push(()=>{
+          setTimeout(()=>{
+            loading = false;
+            $update();
+          },1000);
+        });
+        api.pastos
+        .lista()
+        .then((r) => {
+          pastos = r.data;
+          $update();
+          $f7.dialog.close();
+        })
+        .catch((e) => {
+          $f7.dialog.close();
+        });
+      }
+    });
+
+    const novafazenda = () => {
+      if (
+        $$('input[name="fazenda_nome"]').val() == "" ||
+        $$('input[name="piquetes_qnt"]').val() == "" ||
+        $$('select[name="pasto_id"]').val() == "" ||
+        $$('select[name="pasto_id"]').val() == "null"
+      ){
+        // Campos faltando
+        $f7.dialog.alert('Erro! Preencha todos os campos.');
+        setTimeout(()=>{
+          $f7.dialog.close();
+        },2000); 
+      }else{
+        // Todos os campos preenchidos
+        $f7.dialog.preloader('Adicionando fazendas ...');
+        api.fazendas.novo({
+          "fazenda_nome":$$('input[name="fazenda_nome"]').val(),
+          "pasto_id":$$('select[name="pasto_id"]').val(),
+          "piquetes_qnt":$$('input[name="piquetes_qnt"]').val()
+        }).then((succss)=>{
+          $f7.dialog.close();
+          $f7.dialog.alert('Fazendas Adicionado com sucesso!');
+          setTimeout(()=>{$f7.dialog.close();},2000);
+        }).catch(()=>{
+          // Error
+          $f7.dialog.close();
+          $f7.dialog.alert('Fazendas não adicionado!');
+          setTimeout(()=>{$f7.dialog.close();},2000);
+        });
+      }
+    };
+
     return $render;
   };
 </script>

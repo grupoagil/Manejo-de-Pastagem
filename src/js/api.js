@@ -91,6 +91,62 @@ var api = {
             });
             return promisse;
         },
+        novo:(json={})=>{
+            var promessa = new Promise((sim,nao)=>{
+                var token = localStorage.getItem('token');
+                $f7.request.setup({
+                    headers: {
+                        'Authorization': 'Bearer '+token
+                    }
+                })
+                $f7.request.postJSON(api.base+'/fazendas/novo',json)
+                .then(function (res) {
+                    var json = res.data;
+                    try {
+                        // json = JSON.parse(json);
+                        if(json.success){
+                            sim(json);
+                        }else{
+                            nao();
+                        }
+                    } catch (error) {
+                        nao(error);
+                    }
+                })
+                .catch(function (err) {
+                    nao(err);
+                });
+            });
+            return promessa;
+        },
+        atualiza:(json={},id)=>{
+            var promessa = new Promise((sim,nao)=>{
+                var token = localStorage.getItem('token');
+                $f7.request.setup({
+                    headers: {
+                        'Authorization': 'Bearer '+token
+                    }
+                })
+                $f7.request.postJSON(api.base+'/fazendas/'+id+'/atualiza',json)
+                .then(function (res) {
+                    var json = res.data;
+                    try {
+                        // json = JSON.parse(json);
+                        if(json.success){
+                            sim(json);
+                        }else{
+                            nao();
+                        }
+                    } catch (error) {
+                        nao(error);
+                    }
+                })
+                .catch(function (err) {
+                    nao(err);
+                });
+            });
+            return promessa;
+        },
         piquetes:{
             add:(fazenda)=>{
                 var promessa = new Promise((sim,nao)=>{

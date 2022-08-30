@@ -60,7 +60,10 @@
           <div class="box2-title">Tipos de pasto</div>
         </div>
         <div class="shadow2-bottom">
-          <div class="box2-subtitle">Total: ${pastos}</div>
+          <div class="box2-subtitle">
+            Pastos: ${pastos}<br></br>
+            Períodos: ${periodos}
+          </div>
         </div>
       </a>
       <a href="/picket/" class="box-shadow2 d-flex flex-column space-between">
@@ -109,7 +112,7 @@
   export default (props, { $update }) => {
     let loading = true;
     let effect = "fade";
-    let pastos = 0, fazendas = 0, piquetes = 0;
+    let pastos = 0, periodos = 0, fazendas = 0, piquetes = 0;
     let userName = localStorage.getItem("username");
     api.pageIsVisible('div[data-name="home"]', (e) => {
       loading=true;
@@ -119,6 +122,7 @@
         .info()
         .then((r) => {
           pastos = r.data.pastos;
+          periodos = r.data.periodos;
           fazendas = r.data.fazendas.count;
           piquetes = r.data.fazendas.piquetes;
           loading=false;

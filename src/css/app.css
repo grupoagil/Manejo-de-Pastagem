@@ -354,10 +354,6 @@ a p {
   position: relative;
 }
 
-.page[data-name="picket"] .gram {
-  position: relative;
-}
-
 .gram.position-relative {
   position: relative;
 }

@@ -65,9 +65,10 @@
               <div class="picket-title">
                 <div class="picket-green"></div>
                 <div class="picket-text">${fazenda.FAZENDA_NOME}</div>
-                <div class="picket-edit"><i class="material-icons">edit</i></div>
+                <div class="picket-edit" @click="${()=>{editFazenda(fazenda)}}"><i class="material-icons">edit</i></div>
                 <div class="picket-remove"><i class="material-icons">delete</i></div>
               </div>
+              Pasto: ${fazenda.pasto.PASTO_NOME} (${fazenda.pasto.PASTO_TIPO})
             </div>
             <div class="all-picket">
               <!-- Percorre os Piquetes -->
@@ -101,14 +102,77 @@
             <!-- Verifica se é a última fazenda para não colocar a seperação -->
           `)} 
           <!-- Percorre Fazendas -->
+          <!-- Rodapé -->
+          <div class="gram position-relative"></div>
         ` : $h`
+          <div class="margin">
+            <div class="picket-title">
+              <div class="picket-green"></div>
+              <div class="picket-text">Sem Fazendas!<br></br> Crie uma nova Fazenda.</div>
+            </div>
+          </div>
+          <!-- Rodapé -->
+          <div class="gram"></div>
         `}
         <!-- Verifica quantidade Fazendas -->
       `}
       <!-- Carregando -->
-      <!-- Rodapé -->
-      <div class="gram"></div>
-
+    </div>
+    <!-- And somewhere in DOM -->
+    <div class="popup" id="editFazenda">
+      <div class="view">
+        <div class="page">
+          <div class="navbar">
+            <div class="navbar-bg"></div>
+            <div class="navbar-inner">
+              <div class="title">Editar Fazenda</div>
+              <div class="right">
+                <!-- Link to close popup -->
+                <a class="link popup-close"><i class="material-icons">close</i></a>
+              </div>
+            </div>
+          </div>
+          <div class="page-content justify-center mt-percent-1">
+            <div class="item-inner margin">
+              <div class="item-title item-label title-05 mb-1">Nome da fazenda</div>
+              <div class="item-input-wrap template-box p-1 outline-green">
+                <input type="text" name="fazenda_nome" placeholder="Digita o Nome da fazenda" class="w-100" />
+              </div>
+            </div>
+      
+            <div class="item-inner margin">
+              <div class="item-title item-label title-05 mb-1">Tipo de pasto</div>
+              <div class="item-input-wrap template-box p-1">
+                <select name="pasto_id" class="w-100">
+                  <option value="null" selected disabled>Selecione o Pasto</option>
+                  ${pastos.length > 0  ? $h`
+                    ${pastos.map((pasto) => $h`
+                      <option value="${pasto.id}">${pasto.PASTO_NOME} ( ${pasto.PASTO_TIPO} )</option>
+                    `)} 
+                  `: $h`<option value="null">Sem Pastos</option>`}
+                </select>
+              </div>
+            </div>
+      
+            <div class="item-inner margin">
+              <div class="item-title item-label title-05 mb-1">
+                Quantidade de piquetes
+              </div>
+              <div class="item-input-wrap template-box p-1">
+                <input type="number" name="piquetes_qnt" placeholder="Digite um valor" class="w-100" min="1" max="100" />
+              </div>
+            </div>
+      
+            <div class="margin">
+              <div style="width: 100%">
+                <a href="#" class="btn-green" @click="${atualizafazenda}">
+                  <p class="title-03 white-color">Atualizar Fazenda</p>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -126,10 +190,12 @@
   import imgProfile from "../assets/icons/profile.svg";
   import imgLittleGram from "../assets/icons/little-gram.png";
   import api from "../js/api.js";
+  import $$ from "dom7";
 
   export default (props, { $f7, $update }) => {
     let loading = true;
     let effect = "fade";
+    let pastos = [];
     let fazendas;
     let userName = localStorage.getItem("username");
     api.pageIsVisible('div[data-name="picket"]', (e) => {
@@ -145,6 +211,17 @@
         })
         .catch((e) => {
           console.log("False Error");
+        });
+      // Atualiza lista de pasto
+      api.pastos
+        .lista()
+        .then((r) => {
+          pastos = r.data;
+          $update();
+          $f7.dialog.close();
+        })
+        .catch((e) => {
+          $f7.dialog.close();
         });
     });
     // Remove duplicidade de click em editar ao clicar em apagar
@@ -230,6 +307,52 @@
     const dateFormatter = (date) => {
       return (new Date(date)).toLocaleString();
     };
+
+    // Edit Fazenda
+    var fazendaEdit = null;
+    const editFazenda = (fazenda) => {
+      $$('input[name="fazenda_nome"]').val(fazenda.FAZENDA_NOME);
+      $$('select[name="pasto_id"]').val(fazenda.PASTO_ID).trigger('change');
+      $$('input[name="piquetes_qnt"]').val(fazenda.piquetes.length);
+      fazendaEdit = fazenda;
+      $update();
+      $f7.popup.open('#editFazenda');
+    };
+    const atualizafazenda = () => {
+      console.log(fazendaEdit);
+      if (
+        $$('input[name="fazenda_nome"]').val() == "" ||
+        $$('input[name="piquetes_qnt"]').val() == "" ||
+        $$('select[name="pasto_id"]').val() == "" ||
+        $$('select[name="pasto_id"]').val() == "null"
+      ){
+        // Campos faltando
+        $f7.dialog.alert('Erro! Preencha todos os campos.');
+        setTimeout(()=>{
+          $f7.dialog.close();
+        },2000); 
+      }else{
+        // Todos os campos preenchidos
+        $f7.dialog.preloader('Adicionando fazendas ...');
+        api.fazendas.atualiza({
+          "fazenda_nome":$$('input[name="fazenda_nome"]').val(),
+          "pasto_id":$$('select[name="pasto_id"]').val(),
+          "piquetes_qnt":$$('input[name="piquetes_qnt"]').val()
+        },fazendaEdit.id).then((succss)=>{
+          $f7.dialog.close();
+          $f7.popup.close();
+          $f7.dialog.alert('Fazendas atualizada com sucesso!');
+          setTimeout(()=>{$f7.dialog.close();},2000);
+        }).catch(()=>{
+          // Error
+          $f7.dialog.close();
+          $f7.popup.close();
+          $f7.dialog.alert('Fazendas não atualizada!');
+          setTimeout(()=>{$f7.dialog.close();},2000);
+        });
+      }
+    };
+
     return $render;
   };
 </script>
