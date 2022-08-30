@@ -66,7 +66,7 @@
                 <div class="picket-green"></div>
                 <div class="picket-text">${fazenda.FAZENDA_NOME}</div>
                 <div class="picket-edit" @click="${()=>{editFazenda(fazenda)}}"><i class="material-icons">edit</i></div>
-                <div class="picket-remove"><i class="material-icons">delete</i></div>
+                <div class="picket-remove" @click="${()=>{apagarFazenda(fazenda)}}"><i class="material-icons">delete</i></div>
               </div>
               Pasto: ${fazenda.pasto.PASTO_NOME} (${fazenda.pasto.PASTO_TIPO})
             </div>
@@ -319,7 +319,6 @@
       $f7.popup.open('#editFazenda');
     };
     const atualizafazenda = () => {
-      console.log(fazendaEdit);
       if (
         $$('input[name="fazenda_nome"]').val() == "" ||
         $$('input[name="piquetes_qnt"]').val() == "" ||
@@ -353,6 +352,25 @@
       }
     };
 
+    const apagarFazenda = (fazenda) => {
+      console.log(fazenda);
+      // Pergunta se deseja realmente apagar
+      $f7.dialog.confirm('Deseja realmente apagar o Fazenda '+fazenda.FAZENDA_NOME+'?', function () {
+        // Sim  
+        $f7.dialog.preloader('Removendo fazenda ...');
+        api.fazendas.delete({
+            "id":fazenda.id
+        }).then((succs)=>{
+          $f7.dialog.close();
+          $f7.dialog.alert('Fazenda removido com sucesso!');
+          setTimeout(()=>{$f7.dialog.close();},2000);
+        }).catch((err)=>{
+          $f7.dialog.close();
+          $f7.dialog.alert('Fazendas não removida! Error.');
+          setTimeout(()=>{$f7.dialog.close();},2000);
+        });
+      });
+    };
     return $render;
   };
 </script>
