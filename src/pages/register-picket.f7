@@ -110,7 +110,7 @@
 
     const createPasto = () => {
       // Se tiver erros
-      if ($$('select[name="pasto_tipo"]').val() == null || $$('input[name="pasto_nome"]').val() == "" || $$('input[name="pasto_nome"]').val() == null) {
+      if ($$('div[data-name="novoperiodo"]').find('select[name="pasto_tipo"]').val() == null || $$('div[data-name="novoperiodo"]').find('input[name="pasto_nome"]').val() == "" || $$('div[data-name="novoperiodo"]').find('input[name="pasto_nome"]').val() == null) {
         $f7.dialog.alert('Erro! Preencha todos os campos.');
         setTimeout(()=>{
           $f7.dialog.close();
@@ -118,8 +118,8 @@
       }else{ // Se não tiver erros
         $f7.dialog.preloader('Adicionando pasto ...');
         api.pastos.novo({
-            "pasto_nome":$$('input[name="pasto_nome"]').val(),
-            "pasto_tipo":$$('select[name="pasto_tipo"]').val()
+            "pasto_nome":$$('div[data-name="novoperiodo"]').find('input[name="pasto_nome"]').val(),
+            "pasto_tipo":$$('div[data-name="novoperiodo"]').find('select[name="pasto_tipo"]').val()
         }).then((succss)=>{
           $f7.dialog.close();
           $f7.dialog.alert('Pasto Adicionado com sucesso!');

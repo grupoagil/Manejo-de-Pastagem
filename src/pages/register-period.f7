@@ -115,11 +115,11 @@
     const novoPeriodo = () => {
         // Validando campos
       if (
-        $$('input[name="pasto_periodo_nome"]').val() == "" ||
-        $$('input[name="pasto_data_inicial"]').val() == "" ||
-        $$('input[name="pasto_data_final"]').val() == "" ||
-        $$('select[name="pasto_id"]').val() == "" ||
-        $$('select[name="pasto_id"]').val() == "null"
+        $$('div[data-name="novopasto"]').find('input[name="pasto_periodo_nome"]').val() == "" ||
+        $$('div[data-name="novopasto"]').find('input[name="pasto_data_inicial"]').val() == "" ||
+        $$('div[data-name="novopasto"]').find('input[name="pasto_data_final"]').val() == "" ||
+        $$('div[data-name="novopasto"]').find('select[name="pasto_id"]').val() == "" ||
+        $$('div[data-name="novopasto"]').find('select[name="pasto_id"]').val() == "null"
       ) {
         // Campos faltando
         $f7.dialog.alert('Erro! Preencha todos os campos.');
@@ -130,10 +130,10 @@
         // Todos os campos preenchidos
         $f7.dialog.preloader('Adicionando período ...');
         api.pastos.periodos.novo({
-          "pasto_periodo_nome":$$('input[name="pasto_periodo_nome"]').val(),
-          "pasto_id":$$('select[name="pasto_id"]').val(),
-          "pasto_data_inicial":$$('input[name="pasto_data_inicial"]').val(),
-          "pasto_data_final":$$('input[name="pasto_data_final"]').val()
+          "pasto_periodo_nome":$$('div[data-name="novopasto"]').find('input[name="pasto_periodo_nome"]').val(),
+          "pasto_id":$$('div[data-name="novopasto"]').find('select[name="pasto_id"]').val(),
+          "pasto_data_inicial":$$('div[data-name="novopasto"]').find('input[name="pasto_data_inicial"]').val(),
+          "pasto_data_final":$$('div[data-name="novopasto"]').find('input[name="pasto_data_final"]').val()
         }).then((succss)=>{
           $f7.dialog.close();
           $f7.dialog.alert('Período Adicionado com sucesso!');

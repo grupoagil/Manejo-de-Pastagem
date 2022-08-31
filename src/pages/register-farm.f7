@@ -105,10 +105,10 @@
 
     const novafazenda = () => {
       if (
-        $$('input[name="fazenda_nome"]').val() == "" ||
-        $$('input[name="piquetes_qnt"]').val() == "" ||
-        $$('select[name="pasto_id"]').val() == "" ||
-        $$('select[name="pasto_id"]').val() == "null"
+        $$('div[data-name="novafazenda"]').find('input[name="fazenda_nome"]').val() == "" ||
+        $$('div[data-name="novafazenda"]').find('input[name="piquetes_qnt"]').val() == "" ||
+        $$('div[data-name="novafazenda"]').find('select[name="pasto_id"]').val() == "" ||
+        $$('div[data-name="novafazenda"]').find('select[name="pasto_id"]').val() == "null"
       ){
         // Campos faltando
         $f7.dialog.alert('Erro! Preencha todos os campos.');
@@ -119,9 +119,9 @@
         // Todos os campos preenchidos
         $f7.dialog.preloader('Adicionando fazendas ...');
         api.fazendas.novo({
-          "fazenda_nome":$$('input[name="fazenda_nome"]').val(),
-          "pasto_id":$$('select[name="pasto_id"]').val(),
-          "piquetes_qnt":$$('input[name="piquetes_qnt"]').val()
+          "fazenda_nome":$$('div[data-name="novafazenda"]').find('input[name="fazenda_nome"]').val(),
+          "pasto_id":$$('div[data-name="novafazenda"]').find('select[name="pasto_id"]').val(),
+          "piquetes_qnt":$$('div[data-name="novafazenda"]').find('input[name="piquetes_qnt"]').val()
         }).then((succss)=>{
           $f7.dialog.close();
           $f7.dialog.alert('Fazendas Adicionado com sucesso!');

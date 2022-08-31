@@ -83,14 +83,14 @@
       api.auth.me().then((retrn)=>{
         profile = retrn.data;
         if (profile.isUniversity == 1) {
-          $$('input[name="isUniversity"]').prop('checked',true);
+          $$('div[data-name="profile"]').find('input[name="isUniversity"]').prop('checked',true);
         }else{
-          $$('input[name="isUniversity"]').prop('checked',false);
+          $$('div[data-name="profile"]').find('input[name="isUniversity"]').prop('checked',false);
         }
         if (profile.isProfessional == 1) {
-          $$('input[name="isProfessional"]').prop('checked',true);
+          $$('div[data-name="profile"]').find('input[name="isProfessional"]').prop('checked',true);
         }else{
-          $$('input[name="isProfessional"]').prop('checked',false);
+          $$('div[data-name="profile"]').find('input[name="isProfessional"]').prop('checked',false);
         }
         $update();
       }).catch(()=>{

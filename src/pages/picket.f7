@@ -311,19 +311,19 @@
     // Edit Fazenda
     var fazendaEdit = null;
     const editFazenda = (fazenda) => {
-      $$('input[name="fazenda_nome"]').val(fazenda.FAZENDA_NOME);
-      $$('select[name="pasto_id"]').val(fazenda.PASTO_ID).trigger('change');
-      $$('input[name="piquetes_qnt"]').val(fazenda.piquetes.length);
+      $$('#editFazenda').find('input[name="fazenda_nome"]').val(fazenda.FAZENDA_NOME);
+      $$('#editFazenda').find('select[name="pasto_id"]').val(fazenda.PASTO_ID).trigger('change');
+      $$('#editFazenda').find('input[name="piquetes_qnt"]').val(fazenda.piquetes.length);
       fazendaEdit = fazenda;
       $update();
       $f7.popup.open('#editFazenda');
     };
     const atualizafazenda = () => {
       if (
-        $$('input[name="fazenda_nome"]').val() == "" ||
-        $$('input[name="piquetes_qnt"]').val() == "" ||
-        $$('select[name="pasto_id"]').val() == "" ||
-        $$('select[name="pasto_id"]').val() == "null"
+        $$('#editFazenda').find('input[name="fazenda_nome"]').val() == "" ||
+        $$('#editFazenda').find('input[name="piquetes_qnt"]').val() == "" ||
+        $$('#editFazenda').find('select[name="pasto_id"]').val() == "" ||
+        $$('#editFazenda').find('select[name="pasto_id"]').val() == "null"
       ){
         // Campos faltando
         $f7.dialog.alert('Erro! Preencha todos os campos.');
@@ -334,9 +334,9 @@
         // Todos os campos preenchidos
         $f7.dialog.preloader('Adicionando fazendas ...');
         api.fazendas.atualiza({
-          "fazenda_nome":$$('input[name="fazenda_nome"]').val(),
-          "pasto_id":$$('select[name="pasto_id"]').val(),
-          "piquetes_qnt":$$('input[name="piquetes_qnt"]').val()
+          "fazenda_nome":$$('#editFazenda').find('input[name="fazenda_nome"]').val(),
+          "pasto_id":$$('#editFazenda').find('select[name="pasto_id"]').val(),
+          "piquetes_qnt":$$('#editFazenda').find('input[name="piquetes_qnt"]').val()
         },fazendaEdit.id).then((succss)=>{
           $f7.dialog.close();
           $f7.popup.close();
