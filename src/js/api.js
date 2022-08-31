@@ -59,6 +59,35 @@ var api = {
                 });
             });
             return promisse;
+        },
+        me:()=>{
+            var promisse = new Promise((sim,nao)=>{
+                var token = localStorage.getItem('token');
+                $f7.request({
+                    url: api.base+'/me', 
+                    method: 'GET',
+                    headers: {
+                        Authorization: "Bearer "+token
+                    }
+                })
+                .then(function (res) {
+                    var json = res.data;
+                    try {
+                        json = JSON.parse(json);
+                        if(json.success){
+                            sim(json);
+                        }else{
+                            nao();
+                        }
+                    } catch (error) {
+                        nao();
+                    }
+                })
+                .catch(function (err) {
+                    nao();
+                });
+            });
+            return promisse;
         }
     },
     fazendas:{
