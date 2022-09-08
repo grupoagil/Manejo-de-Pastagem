@@ -68,7 +68,9 @@
                 <div class="picket-edit" @click="${()=>{editFazenda(fazenda)}}"><i class="material-icons">edit</i></div>
                 <div class="picket-remove" @click="${()=>{apagarFazenda(fazenda)}}"><i class="material-icons">delete</i></div>
               </div>
+              ${fazendas.pastos != null ? $h`
               ${fazenda.pasto.PASTO_NOME} (${fazenda.pasto.PASTO_TIPO})
+              ` : $h`Sem Pasto`}
             </div>
             <div class="all-picket">
               <!-- Percorre os Piquetes -->
