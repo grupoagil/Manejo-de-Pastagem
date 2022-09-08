@@ -23,13 +23,13 @@
       </div>
 
       <div class="item-inner margin">
-        <div class="item-title item-label title-05 mb-1">Tipo de pasto</div>
+        <div class="item-title item-label title-05 mb-1">Tipo de pasto (Nome Científico)</div>
         <div class="item-input-wrap template-box p-1">
           <select name="pasto_id" class="w-100">
             <option value="null" selected disabled>Selecione o Pasto</option>
             ${pastos.length > 0  ? $h`
               ${pastos.map((pasto) => $h`
-                <option value="${pasto.id}">${pasto.PASTO_NOME} ( ${pasto.PASTO_TIPO} )</option>
+                <option value="${pasto.id}">${pasto.PASTO_TIPO} ( ${pasto.PASTO_NOME} )</option>
               `)} 
             `: $h`<option value="null">Sem Pastos</option>`}
           </select>

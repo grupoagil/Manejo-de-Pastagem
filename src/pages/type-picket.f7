@@ -17,14 +17,14 @@
     <div class="d-flex flex-column justify-center mt-percent-1 ${loading ? $h`skeleton-text skeleton-effect-${effect}` : $h`none`}">
       <div class="margin d-flex">
         <div style="width: 100%;">
-          <a href="/registerPeriod/" class="btn-green">
-            <p class="title-03 white-color">Novo Período</p>
+          <a href="/registerPicket/" class="btn-green">
+            <p class="title-03 white-color">Nova Pasto</p>
           </a>
         </div>
         <div class="margin"></div>
         <div style="width: 100%;">
-          <a href="/registerPicket/" class="btn-green">
-            <p class="title-03 white-color">Nova Pasto</p>
+          <a href="/registerPeriod/" class="btn-green">
+            <p class="title-03 white-color">Novo Período</p>
           </a>
         </div>
       </div>

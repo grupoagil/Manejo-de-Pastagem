@@ -68,7 +68,7 @@
                 <div class="picket-edit" @click="${()=>{editFazenda(fazenda)}}"><i class="material-icons">edit</i></div>
                 <div class="picket-remove" @click="${()=>{apagarFazenda(fazenda)}}"><i class="material-icons">delete</i></div>
               </div>
-              Pasto: ${fazenda.pasto.PASTO_NOME} (${fazenda.pasto.PASTO_TIPO})
+              ${fazenda.pasto.PASTO_NOME} (${fazenda.pasto.PASTO_TIPO})
             </div>
             <div class="all-picket">
               <!-- Percorre os Piquetes -->
@@ -147,7 +147,7 @@
                   <option value="null" selected disabled>Selecione o Pasto</option>
                   ${pastos.length > 0  ? $h`
                     ${pastos.map((pasto) => $h`
-                      <option value="${pasto.id}">${pasto.PASTO_NOME} ( ${pasto.PASTO_TIPO} )</option>
+                      <option value="${pasto.id}">${pasto.PASTO_TIPO} ( ${pasto.PASTO_NOME} )</option>
                     `)} 
                   `: $h`<option value="null">Sem Pastos</option>`}
                 </select>

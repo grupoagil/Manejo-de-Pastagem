@@ -48,7 +48,7 @@
             <option value="null" selected disabled>Selecione o Pasto</option>
             ${pastos.length > 0  ? $h`
               ${pastos.map((pasto) => $h`
-                <option value="${pasto.id}">${pasto.PASTO_NOME} ( ${pasto.PASTO_TIPO} )</option>
+                <option value="${pasto.id}">${pasto.PASTO_TIPO} ( ${pasto.PASTO_NOME} )</option>
               `)} 
             `: $h`<option value="null">Sem Pastos</option>`}
           </select>
@@ -84,20 +84,9 @@
 
   export default (props, { $f7, $update }) => {
     let pastos = [];
-    let loading = false;
-    var preloader;
     // Carrega informações da página
     api.pageIsVisible('div[data-name="novopasto"]', (e) => {
-      if (!loading) {
-        loading = true;
-        preloader = $f7.dialog.preloader('Carregando ...');
-        $update();
-        preloader.eventsListeners.close.push(()=>{
-          setTimeout(()=>{
-            loading = false;
-            $update();
-          },1000);
-        });
+        
         api.pastos
         .lista()
         .then((r) => {
@@ -108,9 +97,7 @@
         .catch((e) => {
           $f7.dialog.close();
         });
-      }
     });
-    
     // Cadastrar novo período
     const novoPeriodo = () => {
         // Validando campos

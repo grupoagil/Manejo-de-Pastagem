@@ -55,10 +55,10 @@
               <div class="box-picket-toptitle">
                 <div class="box-picket-remove" @click="${()=>{deletePasto(pasto)}}"><i class="material-icons">delete</i></div>
               </div>
-              <div class="box-picket-title">${pasto.PASTO_NOME}</div>
+              <div class="box-picket-title">${pasto.PASTO_TIPO}</div>
               <div class="box-picket-text">
                 <b>
-                  ${pasto.PASTO_TIPO}
+                  ${pasto.PASTO_NOME}
                 </b>
               </div>
             </div>
@@ -110,7 +110,8 @@
 
     const createPasto = () => {
       // Se tiver erros
-      if ($$('div[data-name="novoperiodo"]').find('select[name="pasto_tipo"]').val() == null || $$('div[data-name="novoperiodo"]').find('input[name="pasto_nome"]').val() == "" || $$('div[data-name="novoperiodo"]').find('input[name="pasto_nome"]').val() == null) {
+      if (
+        $$('div[data-name="novoperiodo"]').find('select[name="pasto_tipo"]').val() == null) {
         $f7.dialog.alert('Erro! Preencha todos os campos.');
         setTimeout(()=>{
           $f7.dialog.close();
