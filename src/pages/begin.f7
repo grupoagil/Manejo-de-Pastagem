@@ -109,12 +109,20 @@
 
   import imgLittleGram from "../assets/icons/little-gram.png";
   import api from "../js/api.js";
+  import $$ from "dom7";
+
   export default (props, { $update }) => {
     let loading = true;
     let effect = "fade";
     let pastos = 0, periodos = 0, fazendas = 0, piquetes = 0;
     let userName = localStorage.getItem("username");
-    api.pageIsVisible('div[data-name="home"]', (e) => {
+    $$(document).on('page:init', '.page[data-name="home"]', function (e) {
+      requestPage();
+    });
+    $$(document).on('page:reinit', '.page[data-name="home"]', function (e) {
+      requestPage();
+    });
+    const requestPage = () => {
       loading=true;
       $update();
       // Atualiza página quando estiver visível
@@ -133,7 +141,7 @@
           localStorage.removeItem('username');
           window.location.reload();
         });
-    });
+    };
     return $render;
   };
 </script>

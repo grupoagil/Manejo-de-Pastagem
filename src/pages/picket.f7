@@ -198,7 +198,13 @@
     let pastos = [];
     let fazendas;
     let userName = localStorage.getItem("username");
-    api.pageIsVisible('div[data-name="picket"]', (e) => {
+    $$(document).on('page:init', '.page[data-name="picket"]', function (e) {
+      requestPage();
+    });
+    $$(document).on('page:reinit', '.page[data-name="picket"]', function (e) {
+      requestPage();
+    });
+    const requestPage = () => {
       loading=true;
       $update();
       // Atualiza página quando estiver visível
@@ -223,7 +229,7 @@
         .catch((e) => {
           $f7.dialog.close();
         });
-    });
+    };
     // Remove duplicidade de click em editar ao clicar em apagar
     var deleteOpen = false;
     // Editar Piquete

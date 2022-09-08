@@ -79,7 +79,13 @@
   
   export default (props, { $f7, $update }) => {
     var profile = [];
-    api.pageIsVisible('div[data-name="profile"]', (e) => {
+    $$(document).on('page:init', '.page[data-name="profile"]', function (e) {
+      requestPage();
+    });
+    $$(document).on('page:reinit', '.page[data-name="profile"]', function (e) {
+      requestPage();
+    });
+    const requestPage = () => {
       api.auth.me().then((retrn)=>{
         profile = retrn.data;
         if (profile.isUniversity == 1) {
@@ -96,7 +102,7 @@
       }).catch(()=>{
         window.location.reload();
       });
-    });
+    };
     return $render;
   };
 </script>

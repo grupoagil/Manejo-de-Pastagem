@@ -79,7 +79,13 @@
     var preloader;
 
     // Carrega informações da página
-    api.pageIsVisible('div[data-name="novafazenda"]', (e) => {
+    $$(document).on('page:init', '.page[data-name="novafazenda"]', function (e) {
+      requestPage();
+    });
+    $$(document).on('page:reinit', '.page[data-name="novafazenda"]', function (e) {
+      requestPage();
+    });
+    const requestPage = () => {
       if (!loading) {
         loading = true;
         preloader = $f7.dialog.preloader('Carregando ...');
@@ -101,7 +107,7 @@
           $f7.dialog.close();
         });
       }
-    });
+    };
 
     const novafazenda = () => {
       if (

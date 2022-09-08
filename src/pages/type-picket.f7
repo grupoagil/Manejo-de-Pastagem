@@ -115,7 +115,13 @@
     var preloader;
     let periodos = [];
     // Carrega informações da página
-    api.pageIsVisible('div[data-name="tiposdepastos"]', (e) => {
+    $$(document).on('page:init', '.page[data-name="tiposdepastos"]', function (e) {
+      requestPage();
+    });
+    $$(document).on('page:reinit', '.page[data-name="tiposdepastos"]', function (e) {
+      requestPage();
+    });
+    const requestPage = () => {
       loading=true;
       $update();
       api.pastos.periodos
@@ -129,7 +135,7 @@
         loading=false;
         $update();
       });
-    });
+    };
     // Remover Período
     const deletePeriodo = (periodo) => {
       $f7.dialog.confirm('Deseja realmente apagar o Período '+periodo.PASTO_PERIODO_NOME+'?', function () {

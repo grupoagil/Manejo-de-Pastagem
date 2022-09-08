@@ -92,7 +92,13 @@
     var preloader;
     let pastos = [];
     // Carrega informações da página
-    api.pageIsVisible('div[data-name="novoperiodo"]', (e) => {
+    $$(document).on('page:init', '.page[data-name="novoperiodo"]', function (e) {
+      requestPage();
+    });
+    $$(document).on('page:reinit', '.page[data-name="novoperiodo"]', function (e) {
+      requestPage();
+    });
+    const requestPage = () => {
       loading=true;
       $update();
       api.pastos
@@ -106,7 +112,7 @@
         loading=false;
         $update();
       });
-    });
+    };
 
     const createPasto = () => {
       // Se tiver erros

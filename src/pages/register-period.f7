@@ -85,8 +85,13 @@
   export default (props, { $f7, $update }) => {
     let pastos = [];
     // Carrega informações da página
-    api.pageIsVisible('div[data-name="novopasto"]', (e) => {
-        
+    $$(document).on('page:init', '.page[data-name="novopasto"]', function (e) {
+      requestPage();
+    });
+    $$(document).on('page:reinit', '.page[data-name="novopasto"]', function (e) {
+      requestPage();
+    });
+    const requestPage = () => {
         api.pastos
         .lista()
         .then((r) => {
@@ -97,7 +102,7 @@
         .catch((e) => {
           $f7.dialog.close();
         });
-    });
+    };
     // Cadastrar novo período
     const novoPeriodo = () => {
         // Validando campos
