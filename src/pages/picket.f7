@@ -65,11 +65,11 @@
               <div class="picket-title">
                 <div class="picket-green"></div>
                 <div class="picket-text">${fazenda.FAZENDA_NOME}</div>
-                <div class="picket-edit" @click="${()=>{editFazenda(fazenda)}}"><i class="material-icons">edit</i></div>
+                <div class="picket-edit" @click="${()=>{editFazenda(fazenda);console.log(fazenda.pasto)}}"><i class="material-icons">edit</i></div>
                 <div class="picket-remove" @click="${()=>{apagarFazenda(fazenda)}}"><i class="material-icons">delete</i></div>
               </div>
-              ${fazendas.pastos != null ? $h`
-              ${fazenda.pasto.PASTO_NOME} (${fazenda.pasto.PASTO_TIPO})
+              ${fazenda.pasto != null ? $h`
+              ${fazenda.pasto.PASTO_TIPO} (${fazenda.pasto.PASTO_NOME})
               ` : $h`Sem Pasto`}
             </div>
             <div class="all-picket">
@@ -231,6 +231,9 @@
         .catch((e) => {
           $f7.dialog.close();
         });
+    };
+    const testeFunctin = (fazenda) => {
+      console.log('teste',fazenda);
     };
     // Remove duplicidade de click em editar ao clicar em apagar
     var deleteOpen = false;
