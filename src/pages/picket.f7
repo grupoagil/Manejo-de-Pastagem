@@ -65,7 +65,7 @@
               <div class="picket-title">
                 <div class="picket-green"></div>
                 <div class="picket-text">${fazenda.FAZENDA_NOME}</div>
-                <div class="picket-edit" @click="${()=>{editFazenda(fazenda);console.log(fazenda.pasto)}}"><i class="material-icons">edit</i></div>
+                <div class="picket-edit" @click="${()=>{editFazenda(fazenda)}}"><i class="material-icons">edit</i></div>
                 <div class="picket-remove" @click="${()=>{apagarFazenda(fazenda)}}"><i class="material-icons">delete</i></div>
               </div>
               ${fazenda.pasto != null ? $h`
@@ -232,9 +232,6 @@
           $f7.dialog.close();
         });
     };
-    const testeFunctin = (fazenda) => {
-      console.log('teste',fazenda);
-    };
     // Remove duplicidade de click em editar ao clicar em apagar
     var deleteOpen = false;
     // Editar Piquete
@@ -254,6 +251,7 @@
                     "ocupado":true
                 },piquete.FAZENDA_ID).then((sucess)=>{
                   $f7.dialog.close();
+                  requestPage();
                 }).catch((err)=>{console.log(err)});
               },
               color:'yellow'
@@ -267,6 +265,7 @@
                     "ocupado":false
                 },piquete.FAZENDA_ID).then((sucess)=>{
                   $f7.dialog.close();
+                  requestPage();
                 }).catch((err)=>{console.log(err)});
               },
               color:'green'
@@ -294,6 +293,7 @@
           $f7.dialog.close();
           $f7.dialog.alert('Piquete removido com sucesso!');
           setTimeout(()=>{$f7.dialog.close();},2000);
+          requestPage();
         }).catch((err)=>{
           console.log(err);
         });
@@ -309,6 +309,7 @@
           $f7.dialog.close();
           $f7.dialog.alert('Piquete Adicionado com sucesso!');
           setTimeout(()=>{$f7.dialog.close();},2000);
+          requestPage();
         }).catch((err)=>{
           console.log(err);
         });
@@ -353,12 +354,14 @@
           $f7.popup.close();
           $f7.dialog.alert('Fazendas atualizada com sucesso!');
           setTimeout(()=>{$f7.dialog.close();},2000);
+          requestPage();
         }).catch(()=>{
           // Error
           $f7.dialog.close();
           $f7.popup.close();
           $f7.dialog.alert('Fazendas não atualizada!');
           setTimeout(()=>{$f7.dialog.close();},2000);
+          requestPage();
         });
       }
     };
@@ -374,10 +377,12 @@
           $f7.dialog.close();
           $f7.dialog.alert('Fazenda removido com sucesso!');
           setTimeout(()=>{$f7.dialog.close();},2000);
+          requestPage();
         }).catch((err)=>{
           $f7.dialog.close();
           $f7.dialog.alert('Fazendas não removida! Error.');
           setTimeout(()=>{$f7.dialog.close();},2000);
+          requestPage();
         });
       });
     };

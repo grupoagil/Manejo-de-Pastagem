@@ -145,6 +145,7 @@
           $f7.dialog.close();
           $f7.dialog.alert('Período removido com sucesso!');
           setTimeout(()=>{$f7.dialog.close();},2000);
+          requestPage();
         }).catch((err)=>{
           $f7.dialog.close();
           $f7.dialog.alert('Período não removido! Erro, Tente novamente!');

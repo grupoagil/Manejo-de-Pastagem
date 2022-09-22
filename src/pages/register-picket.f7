@@ -130,6 +130,8 @@
         }).then((succss)=>{
           $f7.dialog.close();
           $f7.dialog.alert('Pasto Adicionado com sucesso!');
+          // Atualiza os pastos
+          requestPage();
           setTimeout(()=>{$f7.dialog.close();},2000);
         }).catch(()=>{
           // Error
@@ -148,6 +150,7 @@
           $f7.dialog.close();
           $f7.dialog.alert('Pasto removido com sucesso!');
           setTimeout(()=>{$f7.dialog.close();},2000);
+          requestPage();
         }).catch((err)=>{
           $f7.dialog.close();
           $f7.dialog.alert('Pasto não removido! Erro, Tente novamente!');
