@@ -3,7 +3,7 @@ import $$ from "dom7";
 let $f7 = Framework7;
 
 var api = {
-    base:"http://localhost:8000/api",
+    base:"https://144.91.127.223:49156/api",
     auth:{
         login:($json={})=>{
            // Login User 
