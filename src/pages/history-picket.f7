@@ -16,7 +16,24 @@
     </div>
     <div class="d-flex flex-column justify-center mt-percent-1">
       <!-- Inicio da Página -->
-
+      ${(history == null)?' ':$h`
+      <div class="block-title">Histórico do Piquete</div>
+      <div class="list list-history">
+        <ul>
+          ${history.map((info) => $h`
+            <li>
+              <div class="item-content">
+                <div class="item-media"><div class="box-picket-number status-${(info.PIQUETE_OP == 0)?'alert':'success'}">${(info.PIQUETE_OP == 0)?'O':'L'}</div></div>
+                <div class="item-inner">
+                  <div class="item-title">${info.user.name} Alterou para ${(info.PIQUETE_OP == 0)?'Ocupado':'Livre'}</div>
+                  <div class="item-after">${formatData(info.PIQUETE_TIME)}</div>
+                </div>
+              </div>
+            </li>
+          `)}
+        </ul>
+      </div>
+      `}
       <!-- Final da Página -->
     </div>
   </div>
@@ -38,7 +55,7 @@
   import $$ from "dom7";
 
   export default (props, { $f7, $update }) => {
-    let pastos = [];
+    var history = null;
     let loading = false;
     var preloader;
 
@@ -60,19 +77,23 @@
             $update();
           },1000);
         });
-        api.pastos
-        .lista()
-        .then((r) => {
-          pastos = r.data;
+        api.fazendas.piquetes.history({
+            "index":props.indexPiquete
+        },props.idFazenda).then((r)=>{
+          history = r.data;
+          console.log(history);
           $update();
           $f7.dialog.close();
-        })
-        .catch((e) => {
+        }).catch(()=>{
           $f7.dialog.close();
         });
       }
     };
 
+    const formatData = (data) => {
+      const date = new Date(data);
+      return date.toLocaleString();
+    }
     return $render;
   };
 </script>

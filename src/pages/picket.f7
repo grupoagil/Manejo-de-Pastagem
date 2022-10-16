@@ -273,7 +273,7 @@
             {
               text: 'Histórico',
               onClick:()=>{
-                $f7.views.main.router.navigate('/historypicket/'+piquete.id);
+                $f7.views.main.router.navigate('/historypicket/'+piquete.FAZENDA_ID+'/'+piquete.PIQUETE_INDEX);
               },
               color:'blue'
             },

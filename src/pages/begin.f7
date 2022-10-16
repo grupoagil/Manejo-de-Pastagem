@@ -139,7 +139,7 @@
         .then((r) => {
           pastos = r.data.pastos;
           alertas = r.data.alertas;
-          console.log(alertas.length);
+          
           periodos = r.data.periodos;
           fazendas = r.data.fazendas.count;
           piquetes = r.data.fazendas.piquetes;

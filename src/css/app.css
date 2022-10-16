@@ -1703,3 +1703,7 @@ p {
 .md .item-input:not(.item-input-outline) .item-input-wrap:after, .md .input:not(.input-outline):after{
   background: unset;
 }
+
+.list-history{
+  font-size: .75rem;
+}

@@ -82,7 +82,7 @@ var routes = [
   },
 
   {
-    path:'/historypicket/:id',
+    path:'/historypicket/:idFazenda/:indexPiquete',
     component: HistoryPicketPage
   }
 
