@@ -10,7 +10,7 @@
         <div class="logo-topo">
           <img src="${imgLogoLogin}" alt="" />
         </div>
-        <div class="login-topo">Tipos de pasto</div>
+        <div class="login-topo">Pastos e Períodos</div>
       </div>
       <div class="little-gram"></div>
     </div>

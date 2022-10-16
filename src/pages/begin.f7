@@ -57,7 +57,7 @@
       >
         <div class="shadow2-top">
           <div class="circle-gray"><i class="material-icons">eco</i></div>
-          <div class="box2-title">Tipos de pasto</div>
+          <div class="box2-title">Pastos e Períodos</div>
         </div>
         <div class="shadow2-bottom">
           <div class="box2-subtitle">
@@ -65,6 +65,13 @@
             Períodos: ${periodos}
           </div>
         </div>
+        ${(alertas.length == 0)?' ':$h`
+          <div class="box-picket-bottom">
+            <div class="box-picket-status status-danger">
+              Você possui ${alertas.length} alertas.
+            </div>
+          </div>
+        `}
       </a>
       <a href="/picket/" class="box-shadow2 d-flex flex-column space-between">
         <div class="shadow2-top">
@@ -115,6 +122,7 @@
     let loading = true;
     let effect = "fade";
     let pastos = 0, periodos = 0, fazendas = 0, piquetes = 0;
+    let alertas = [];
     let userName = localStorage.getItem("username");
     $$(document).on('page:init', '.page[data-name="home"]', function (e) {
       requestPage();
@@ -130,6 +138,8 @@
         .info()
         .then((r) => {
           pastos = r.data.pastos;
+          alertas = r.data.alertas;
+          console.log(alertas.length);
           periodos = r.data.periodos;
           fazendas = r.data.fazendas.count;
           piquetes = r.data.fazendas.piquetes;
