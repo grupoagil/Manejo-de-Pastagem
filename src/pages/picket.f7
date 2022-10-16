@@ -271,6 +271,13 @@
               color:'green'
             },
             {
+              text: 'Histórico',
+              onClick:()=>{
+                $f7.views.main.router.navigate('/historypicket/'+piquete.id);
+              },
+              color:'blue'
+            },
+            {
               text: 'Cancelar',
               color:'red'
             },

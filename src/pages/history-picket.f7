@@ -1,0 +1,78 @@
+<template>
+  <div class="page" data-name="historypicket">
+    <div class="topo-login d-flex flex-column space-between">
+      <div class="logo-base-topo">
+        <div class="left">
+          <a href="#" class="circle-white back">
+            <img src="${imgArrow}" alt="" />
+          </a>
+        </div>
+        <div class="logo-topo">
+          <img src="${imgLogoLogin}" alt="" />
+        </div>
+        <div class="login-topo">Histórico do Piquete</div>
+      </div>
+      <div class="little-gram"></div>
+    </div>
+    <div class="d-flex flex-column justify-center mt-percent-1">
+      <!-- Inicio da Página -->
+
+      <!-- Final da Página -->
+    </div>
+  </div>
+</template>
+
+<script>
+  import imgArrow from "../assets/icons/arrow.svg";
+  import imgCow from "../assets/icons/cow.svg";
+  import imgCowFace from "../assets/icons/cow-face.svg";
+  import imgGram from "../assets/icons/gram.svg";
+  import imgLogo from "../assets/icons/logo.svg";
+  import imgLogoLogin from "../assets/icons/logo-login.svg";
+  import imgPlus from "../assets/icons/plus.svg";
+  import imgSubtract from "../assets/icons/subtract.svg";
+  import imgSuccess from "../assets/icons/success.svg";
+  import imgProfile from "../assets/icons/profile.svg";
+  import imgLittleGram from "../assets/icons/little-gram.png";
+  import api from "../js/api.js";
+  import $$ from "dom7";
+
+  export default (props, { $f7, $update }) => {
+    let pastos = [];
+    let loading = false;
+    var preloader;
+
+    // Carrega informações da página
+    $$(document).on('page:init', '.page[data-name="historypicket"]', function (e) {
+      requestPage();
+    });
+    $$(document).on('page:reinit', '.page[data-name="historypicket"]', function (e) {
+      requestPage();
+    });
+    const requestPage = () => {
+      if (!loading) {
+        loading = true;
+        preloader = $f7.dialog.preloader('Carregando ...');
+        $update();
+        preloader.eventsListeners.close.push(()=>{
+          setTimeout(()=>{
+            loading = false;
+            $update();
+          },1000);
+        });
+        api.pastos
+        .lista()
+        .then((r) => {
+          pastos = r.data;
+          $update();
+          $f7.dialog.close();
+        })
+        .catch((e) => {
+          $f7.dialog.close();
+        });
+      }
+    };
+
+    return $render;
+  };
+</script>

@@ -10,6 +10,7 @@ import PersonalDataPage from '../pages/personal-data.f7'
 import PasswordSecurityPage from '../pages/password-security.f7'
 import RegisterPeriodPage from '../pages/register-period.f7'
 import RegisterPicketPage from '../pages/register-picket.f7'
+import HistoryPicketPage from '../pages/history-picket.f7'
 import NewPicketPage from '../pages/new-picket.f7'
 import NewPasturePage from '../pages/new-pasture.f7'
 
@@ -79,6 +80,11 @@ var routes = [
     path: '/newPasture/',
     component: NewPasturePage
   },
+
+  {
+    path:'/historypicket/:id',
+    component: HistoryPicketPage
+  }
 
 ];
 
