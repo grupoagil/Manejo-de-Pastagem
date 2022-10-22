@@ -29,7 +29,7 @@
         </div>
       </div>
       <div class="margin d-flex flex-column align-items-center">
-        <div class="info-today-text">Informação do perídodo atual de pasto</div>
+        <div class="info-today-text">Informação do período atual de pasto</div>
         <div class="all-picket box-textarea">
           ${periodos.map((periodo) => $h`
             ${((new Date(periodo.PASTO_DATA_INICIAL+' 00:00:00')).getTime() < (new Date()).getTime() && (new Date(periodo.PASTO_DATA_FINAL+' 00:00:00')).getTime() > (new Date()).getTime()) ? $h`
